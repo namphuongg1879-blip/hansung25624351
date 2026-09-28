@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>둥둥 · 심심할 땐 둥둥</title>
+<meta name="description" content="심리테스트, 퀴즈, 밸런스 게임, 월드컵, 오늘의 타로를 한곳에서">
+<meta name="theme-color" content="#FF7A45">
+
+<!-- ▼ VWO SmartCode가 필요하면 여기에 붙여넣으세요 ▼ -->
+
+<!-- ▲ VWO SmartCode 끝 ▲ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+/* =========================================================
+   색상 · 글꼴 — 여기 값만 바꾸면 전체 분위기가 바뀝니다
+   ========================================================= */
+:root{
+  --bg:#F3F5FA; --paper:#FFFFFF; --ink:#1D1A3A; --soft:#6B6A85; --line:#E3E6F0;
+  --main:#FF7A45; --main-dark:#E8622D; --main-soft:#FFEDE5;
+  --lemon:#FFE45C; --mint:#5ED3B4; --violet:#7C6BF2; --violet-soft:#EFEAFF;
+  --ok:#2FB57C; --bad:#F2545B;
+  --display:'Jua','Pretendard',sans-serif;
+  --body:'Pretendard',system-ui,-apple-system,sans-serif;
+  --tab-h:0px;
+}
+html[data-theme="dark"]{
+  --bg:#15142A; --paper:#221F3F; --ink:#F2F1FA; --soft:#A9A7C4; --line:#343158;
+  --main-soft:#3A2A2A; --violet-soft:#2E2A57;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));transition:background .25s,color .25s}
+button{font-family:inherit;cursor:pointer;color:inherit}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+
+/* ---------- 상단 헤더 ---------- */
+.topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
+.topbar .wrap{display:flex;align-items:center;gap:12px;height:62px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:26px}
+.brand img{height:32px;width:auto}
+.brand .dot{width:28px;height:28px;border-radius:50%;background:var(--main);display:grid;place-items:center;color:#fff;font-size:14px;box-shadow:inset -4px -4px 0 rgba(0,0,0,.14)}
+.icon-btn{border:1px solid var(--line);background:var(--paper);width:40px;height:40px;border-radius:12px;font-size:18px;display:grid;place-items:center;flex:none}
+.dnav{display:none;gap:4px;margin-left:18px}
+.dnav a{padding:8px 12px;border-radius:10px;font-weight:600;color:var(--soft)}
+.dnav a:hover{background:var(--paper);color:var(--ink)}
+.dnav a.on{color:var(--ink);background:var(--paper);box-shadow:inset 0 -3px 0 var(--main)}
+.top-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.my-link{display:none;font-weight:700;padding:9px 14px;border-radius:12px;background:var(--ink);color:var(--bg)}
+
+/* ---------- 하단 탭 (휴대폰 · 태블릿) ---------- */
+.tabbar{position:fixed;bottom:0;left:0;right:0;background:var(--paper);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:40}
+.tabbar a{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:11px;color:var(--soft);padding:4px 0}
+.tabbar a b{font-size:21px;line-height:1.2;font-weight:400}
+.tabbar a.on{color:var(--ink);font-weight:700}
+
+/* ---------- 홈 ---------- */
+.home-hero{padding:22px 0 6px}
+.home-hero h1{font-family:var(--display);font-weight:400;font-size:clamp(26px,4.4vw,40px);line-height:1.2;margin:0 0 14px}
+.search{position:relative;max-width:560px}
+.search input{width:100%;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:16px;padding:14px 16px 14px 44px;font-size:16px;font-family:inherit}
+.search span{position:absolute;left:16px;top:50%;transform:translateY(-50%);opacity:.55}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 0 16px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 15px;font-size:14px;font-weight:600;white-space:nowrap}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.banner{border-radius:24px;overflow:hidden;position:relative}
+.slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.slides::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;height:200px;position:relative;display:flex;align-items:flex-end;padding:22px;color:#fff;background-size:cover;background-position:center;border-radius:0}
+.slide::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,26,58,0) 15%,rgba(29,26,58,.75))}
+.slide .txt{position:relative}
+.slide .tag{display:inline-block;font-size:12px;font-weight:700;background:rgba(255,255,255,.22);padding:3px 9px;border-radius:8px;margin-bottom:8px}
+.slide h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.2;margin:0 0 4px}
+.slide p{margin:0;font-size:14px;opacity:.9}
+.dots{position:absolute;right:14px;top:14px;display:flex;gap:5px}
+.dots i{width:7px;height:7px;border-radius:4px;background:rgba(255,255,255,.5);transition:.25s}
+.dots i.on{width:18px;background:#fff}
+
+.sec{padding-top:30px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.sec h3{font-family:var(--display);font-weight:400;font-size:22px;margin:0}
+.sec select{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:10px;padding:7px 10px;font-family:inherit;font-size:13px}
+.hlist{display:flex;gap:12px;overflow-x:auto;margin:0 -18px;padding:0 18px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.hlist::-webkit-scrollbar{display:none}
+.hlist .card{flex:0 0 150px;scroll-snap-align:start}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+
+.card{display:block;background:var(--paper);border-radius:18px;overflow:hidden;border:1px solid var(--line);transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.thumb{aspect-ratio:1/1;position:relative;overflow:hidden;display:grid;place-items:center}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.emo{font-size:56px;line-height:1;filter:drop-shadow(0 4px 0 rgba(0,0,0,.08))}
+.badge{position:absolute;left:8px;top:8px;background:rgba(29,26,58,.85);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px}
+.badge.new{background:var(--violet)}
+.badge.hot{background:var(--main)}
+.card .meta{padding:10px 12px 12px}
+.card .t{font-weight:700;font-size:14.5px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}
+.card .p{display:flex;justify-content:space-between;font-size:12px;color:var(--soft);margin-top:5px}
+.rank{position:absolute;right:8px;bottom:4px;font-family:var(--display);font-size:36px;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.empty{padding:40px 0;text-align:center;color:var(--soft);grid-column:1/-1}
+
+/* ---------- 플레이 화면 공통 ---------- */
+.playwrap{display:block;padding:18px 0 30px}
+.play{max-width:640px;margin:0 auto}
+.side-rec{display:none}
+.hero-thumb{border-radius:24px;overflow:hidden;aspect-ratio:4/3;display:grid;place-items:center;position:relative}
+.hero-thumb img{width:100%;height:100%;object-fit:cover}
+.hero-thumb .emo{font-size:clamp(84px,14vw,120px)}
+.kind{display:inline-block;margin-top:18px;font-size:12px;font-weight:700;color:var(--main);background:var(--main-soft);padding:4px 10px;border-radius:8px}
+.play h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,4.4vw,38px);line-height:1.25;margin:8px 0 6px}
+.lead{color:var(--soft);margin:0 0 16px}
+.stat{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--soft);margin-bottom:20px}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:0;border-radius:16px;padding:16px;font-size:17px;font-weight:800;background:none}
+.btn-main{background:var(--main);color:#fff;box-shadow:0 5px 0 var(--main-dark)}
+.btn-main:active{transform:translateY(3px);box-shadow:0 2px 0 var(--main-dark)}
+.btn-line{background:var(--paper);border:1.5px solid var(--line)}
+.btn-line.liked{border-color:var(--bad);color:var(--bad)}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.btn-row.three{grid-template-columns:repeat(3,1fr)}
+.notice{background:var(--violet-soft);border-radius:14px;padding:12px 14px;font-size:14px;margin-bottom:14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.notice a{font-weight:800;color:var(--violet);white-space:nowrap}
+.kbd{font-size:12px;color:var(--soft);text-align:center;margin-top:14px;display:none}
+
+.prog{display:flex;align-items:center;gap:10px;margin:0 0 22px}
+.prog .bar{flex:1;height:10px;background:var(--line);border-radius:6px;overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--main);border-radius:6px;transition:width .35s}
+.prog span{font-size:13px;font-weight:700;color:var(--soft);min-width:44px;text-align:right}
+.prog button{border:0;background:none;color:var(--soft);font-size:13px;padding:4px 2px}
+
+.qimg{border-radius:18px;overflow:hidden;margin-bottom:16px}
+.qimg img{width:100%;height:220px;object-fit:cover}
+.qno{text-align:center;font-family:var(--display);color:var(--main);font-size:18px}
+.qtitle{font-family:var(--display);font-weight:400;font-size:clamp(23px,3.6vw,30px);line-height:1.35;margin:2px 0 22px;text-align:center;white-space:pre-line}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;gap:12px;align-items:center;border:1.5px solid var(--line);background:var(--paper);border-radius:16px;padding:15px 16px;font-size:16px;text-align:left;font-weight:600}
+.opt .n{flex:none;width:26px;height:26px;border-radius:8px;background:var(--bg);display:grid;place-items:center;font-size:13px;color:var(--soft)}
+.opt:hover{border-color:var(--main)}
+.opt.picked{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.opt.right{background:#E3F7EE;border-color:var(--ok);color:#135C3D}
+.opt.wrong{background:#FDE7E8;border-color:var(--bad);color:#8A1F24}
+.explain{margin-top:14px;border-radius:14px;padding:14px 16px;background:var(--paper);border:1px dashed var(--line);font-size:14.5px}
+.explain b{display:block;margin-bottom:2px}
+
+/* 결과 */
+.result{text-align:center}
+.result .label{font-size:14px;color:var(--soft);margin:18px 0 2px}
+.result h1{margin-top:0}
+.desc{text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:14px 0 14px;white-space:pre-line}
+.tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:8px}
+.tags span{font-size:13px;background:var(--violet-soft);color:var(--violet);padding:4px 10px;border-radius:999px;font-weight:700}
+.ratio{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px 16px;text-align:left;margin-bottom:14px}
+.ratio .row{display:flex;align-items:center;gap:10px;font-size:13px;margin:6px 0}
+.ratio .row span:first-child{flex:0 0 42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ratio .row .b{flex:1;height:10px;background:var(--line);border-radius:6px;overflow:hidden}
+.ratio .row .b i{display:block;height:100%;background:var(--violet);border-radius:6px}
+.ratio .row.me{font-weight:800}
+.ratio .row.me .b i{background:var(--main)}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.match a{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center}
+.match small{display:block;font-size:12px;color:var(--soft);font-weight:700}
+.match .emo{font-size:40px;margin:6px 0}
+.match b{font-size:14px;line-height:1.3;display:block}
+.others{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.others a{font-size:13px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 12px}
+.others a.me{background:var(--ink);color:var(--bg)}
+.more-title{font-family:var(--display);font-size:21px;text-align:left;margin:30px 0 12px}
+.score{font-family:var(--display);font-size:64px;line-height:1;color:var(--main);margin-top:14px}
+.score small{font-size:26px;color:var(--soft)}
+.review{text-align:left;display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.review div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.review b{color:var(--ok)}
+
+/* 밸런스 게임 */
+.vs{display:flex;flex-direction:column;gap:10px;position:relative}
+.side{position:relative;border:0;border-radius:22px;min-height:150px;padding:22px;font-size:20px;font-weight:800;color:#fff;overflow:hidden;text-align:center;display:grid;place-items:center;line-height:1.35}
+.side.a{background:#FF7A45}
+.side.b{background:#7C6BF2}
+.side .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.35}
+.side .lbl{position:relative}
+.side .fill{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.22);width:0;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.side .pct{position:relative;display:block;font-family:var(--display);font-weight:400;font-size:30px;margin-top:4px;min-height:1em}
+.side.dim{filter:saturate(.35) brightness(.92)}
+.side.mine{outline:4px solid var(--lemon);outline-offset:-4px}
+.vs-mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:var(--ink);color:var(--lemon);font-family:var(--display);font-size:22px;display:grid;place-items:center;z-index:2;border:4px solid var(--bg);pointer-events:none}
+.comment{margin-top:14px;text-align:center;font-weight:700;min-height:1.5em}
+.summary{display:flex;flex-direction:column;gap:8px;margin:16px 0 18px;text-align:left}
+.summary div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.summary b{color:var(--main)}
+
+/* 월드컵 */
+.round{text-align:center;font-family:var(--display);font-size:26px;margin:4px 0 2px}
+.round small{display:block;font-family:var(--body);font-size:13px;color:var(--soft)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;position:relative}
+.cand{border:1.5px solid var(--line);padding:0;background:var(--paper);border-radius:20px;overflow:hidden;transition:transform .2s,opacity .2s}
+.cand .thumb{aspect-ratio:3/4}
+.cand .thumb .emo{font-size:clamp(64px,12vw,96px)}
+.cand .nm{padding:12px 8px;font-weight:800;font-size:16px}
+.cand:hover{border-color:var(--main)}
+.cand.win{transform:scale(1.03);border-color:var(--main)}
+.cand.lose{opacity:.25}
+.pair .vs-mark{top:42%}
+.round-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.crown{font-size:44px;text-align:center}
+.path{display:flex;flex-direction:column;gap:6px;text-align:left;margin:14px 0}
+.path div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14px;display:flex;justify-content:space-between}
+.path span{color:var(--soft)}
+
+/* 타로 */
+.topics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.topic{border:1.5px solid var(--line);background:var(--paper);border-radius:18px;padding:18px 12px;font-weight:800;font-size:16px}
+.topic b{display:block;font-size:30px;font-weight:400;margin-bottom:4px}
+.topic:hover{border-color:var(--violet)}
+.deck{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0 18px;perspective:900px}
+.tcard{display:block;width:100%;height:0;border:0;padding:0 0 160% 0;background:none;position:relative;transform-style:preserve-3d;transition:transform .7s}
+.tcard:hover:not(.flip){transform:translateY(-6px)}
+.tcard.flip{transform:rotateY(180deg)}
+.tcard .face{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.tcard .tback{background:#1D1A3A;border:3px solid var(--lemon);background-image:radial-gradient(circle at 50% 50%,rgba(255,228,92,.25) 0 18%,transparent 19%),repeating-linear-gradient(45deg,rgba(255,255,255,.06) 0 6px,transparent 6px 12px);color:var(--lemon);font-size:26px}
+.tcard .front{transform:rotateY(180deg);background:#FFF6D9;color:#1D1A3A;border:3px solid var(--lemon);flex-direction:column;gap:8px;padding:8px;text-align:center;font-weight:800;font-size:13px}
+.tcard .front img{width:100%;height:76%;object-fit:cover;border-radius:8px}
+.tcard .front .emo{font-size:44px}
+.tcard.fade{opacity:.35}
+
+/* MY */
+.hist{display:flex;flex-direction:column;gap:8px}
+.hist a{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:10px}
+.hist .mini{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font-size:26px;flex:none}
+.hist b{display:block;font-size:14.5px}
+.hist small{color:var(--soft);font-size:12.5px}
+
+/* 토스트 · 축하 · 애니메이션 */
+.toast{position:fixed;left:50%;bottom:calc(var(--tab-h) + 24px);transform:translate(-50%,16px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:999px;font-size:14px;opacity:0;transition:.25s;z-index:60;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;border-radius:2px;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg)}}
+.pop{animation:pop .35s ease-out}
+@keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+footer{padding:36px 0 26px;font-size:12.5px;color:var(--soft);text-align:center}
+
+/* =========================================================
+   반응형: 휴대폰(기본) → 태블릿(640px~) → 컴퓨터(1024px~)
+   ========================================================= */
+@media (max-width:1023px){ :root{--tab-h:64px} }
+
+/* 태블릿 · 아이패드 */
+@media (min-width:640px){
+  .wrap{padding:0 28px}
+  .hlist{margin:0 -28px;padding:0 28px 6px}
+  .hlist .card{flex-basis:190px}
+  .grid{grid-template-columns:repeat(3,1fr);gap:16px}
+  .slide{height:260px;padding:30px}
+  .slide h2{font-size:34px}
+  .vs{flex-direction:row}
+  .side{flex:1;min-height:260px;font-size:22px}
+  .topics{grid-template-columns:repeat(4,1fr)}
+  .match{gap:14px}
+}
+
+/* 컴퓨터 */
+@media (min-width:1024px){
+  .tabbar{display:none}
+  .dnav,.my-link{display:flex}
+  .wrap{padding:0 32px}
+  .grid{grid-template-columns:repeat(4,1fr);gap:18px}
+  .hlist{display:grid;grid-template-columns:repeat(6,1fr);margin:0;padding:0;overflow:visible;gap:16px}
+  .home-hero{padding:36px 0 6px;display:flex;align-items:flex-end;justify-content:space-between;gap:30px}
+  .home-hero h1{margin:0}
+  .search{flex:0 0 440px}
+  /* 배너: 큰 배너 1 + 작은 배너 2 매거진 배치 */
+  .banner{border-radius:0;overflow:visible}
+  .slides{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:170px 170px;gap:16px;overflow:visible}
+  .slide{height:auto;border-radius:24px;overflow:hidden}
+  .slide:first-child{grid-row:1/3}
+  .slide:first-child h2{font-size:42px}
+  .slide:not(:first-child) h2{font-size:24px}
+  .slide:nth-child(n+4){display:none}
+  .dots{display:none}
+  .playwrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:40px;align-items:start;padding-top:28px}
+  .play{margin:0;max-width:680px;justify-self:center;width:100%}
+  .side-rec{display:block;position:sticky;top:86px}
+  .side-rec h4{font-family:var(--display);font-weight:400;font-size:20px;margin:0 0 12px}
+  .side-rec .hist a{padding:8px}
+  .kbd{display:block}
+  .hero-thumb{aspect-ratio:16/9}
+}
+
+/* =========================================================
+   ✨ 움직임 · 꾸밈 (이미지 없이도 화려하게)
+   ========================================================= */
+/* 배경에 천천히 떠다니는 색 덩어리 */
+.blobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.blobs span{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(70px);opacity:.28;animation:drift 22s ease-in-out infinite alternate}
+.blobs span:nth-child(1){background:var(--main);left:-12vmax;top:-14vmax}
+.blobs span:nth-child(2){background:var(--violet);right:-16vmax;top:20vh;animation-duration:26s;animation-delay:-6s}
+.blobs span:nth-child(3){background:var(--mint);left:20vw;bottom:-22vmax;animation-duration:30s;animation-delay:-12s}
+html[data-theme="dark"] .blobs span{opacity:.18}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+
+/* 마스코트 '둥둥' */
+.mascot{overflow:visible;display:block}
+.mascot .m-body{animation:float 3.2s ease-in-out infinite;transform-origin:60px 110px}
+.mascot .m-string{animation:sway 3.2s ease-in-out infinite;transform-origin:60px 104px}
+.mascot .m-eyes{animation:blink 4.2s infinite;transform-box:fill-box;transform-origin:center}
+.mascot.m-wow .m-body{animation:jump .9s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+@keyframes sway{0%,100%{transform:rotate(4deg)}50%{transform:rotate(-4deg)}}
+@keyframes blink{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}}
+@keyframes jump{0%,100%{transform:translateY(0)}40%{transform:translateY(-16px) scale(1.04,.96)}}
+
+/* 홈 인사말 */
+.hello{display:flex;align-items:flex-end;gap:10px}
+.hello .mascot{width:74px;flex:none}
+.bubble{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:16px 16px 16px 4px;padding:8px 12px;font-size:13.5px;font-weight:700;margin-bottom:34px;animation:bubble .4s ease-out}
+@keyframes bubble{from{transform:scale(.6);opacity:0}}
+
+/* 실시간 참여 알림 */
+.ticker{display:flex;align-items:center;gap:10px;margin-top:14px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:14px;overflow:hidden}
+.ticker .live{flex:none;font-size:11px;font-weight:800;color:#fff;background:var(--bad);padding:2px 7px;border-radius:6px;animation:pulse 1.6s infinite}
+.ticker #tick{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticker #tick.swap{animation:tickIn .45s ease-out}
+@keyframes tickIn{from{transform:translateY(100%);opacity:0}}
+@keyframes pulse{50%{opacity:.55}}
+
+/* 배너 속 떠다니는 그림 */
+.slide .art{position:absolute;right:6%;top:50%;transform:translateY(-58%);display:flex;gap:4px;z-index:1;pointer-events:none}
+.slide .art span{font-size:clamp(46px,9vw,92px);animation:float 3s ease-in-out infinite;filter:drop-shadow(0 8px 12px rgba(0,0,0,.18))}
+.slide .art span:nth-child(2){animation-delay:-1s;margin-top:40px}
+.slide .art span:nth-child(3){animation-delay:-2s}
+.slide .txt{z-index:2}
+.slide{background-image:radial-gradient(circle at 85% 20%,rgba(255,255,255,.28) 0 12%,transparent 13%),radial-gradient(circle at 70% 90%,rgba(255,255,255,.16) 0 18%,transparent 19%)}
+
+/* 썸네일 무늬 + 호버 */
+.thumb::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.6) 1.4px,transparent 1.6px);background-size:14px 14px;opacity:.55}
+.thumb::after{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.35);right:-18%;bottom:-24%}
+.thumb img,.thumb .emo,.thumb .badge,.thumb .rank{position:relative;z-index:1}
+.thumb .badge,.thumb .rank{position:absolute}
+.card{transform:perspective(700px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .2s,box-shadow .2s}
+.card:hover{transform:perspective(700px) rotateX(var(--rx,0)) rotateY(var(--ry,0)) translateY(-4px);box-shadow:0 14px 30px -14px rgba(29,26,58,.35)}
+.card:hover .emo{animation:bob .9s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-6deg) scale(1.06)}}
+
+/* 스크롤하면 부드럽게 등장 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s}
+.reveal.in{opacity:1;transform:none}
+
+/* 버튼 물결 */
+.btn,.opt,.side,.topic{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:ripple .55s ease-out forwards;pointer-events:none}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+
+/* 질문 등장 · 보기 순서대로 */
+.q-head{display:flex;flex-direction:column;align-items:center}
+.q-head .mascot{width:70px;margin-bottom:2px}
+.opt{animation:optIn .42s both;animation-delay:calc(var(--d,0) * 70ms)}
+@keyframes optIn{from{opacity:0;transform:translateX(24px)}}
+.prog .bar{overflow:visible;position:relative}
+.prog .bar i{position:relative}
+.prog .bar i::after{content:"";position:absolute;right:-9px;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:var(--paper);border:4px solid var(--main);box-sizing:border-box}
+
+/* 결과 분석 로딩 */
+.loading{text-align:center;padding:30px 0 10px}
+.loading .stage{position:relative;width:200px;height:200px;margin:0 auto 10px;display:grid;place-items:center}
+.loading .ring{position:absolute;inset:0;border-radius:50%;border:4px dashed var(--main);opacity:.5;animation:spin 6s linear infinite}
+.loading .ring.r2{inset:22px;border-color:var(--violet);animation-direction:reverse;animation-duration:4s}
+.loading .mascot{width:110px}
+.loading .orbit{position:absolute;inset:0;animation:spin 3s linear infinite}
+.loading .orbit span{position:absolute;font-size:24px}
+.loading .orbit span:nth-child(1){left:50%;top:-6px}
+.loading .orbit span:nth-child(2){right:-6px;top:55%}
+.loading .orbit span:nth-child(3){left:6%;bottom:6%}
+.loading h2{font-family:var(--display);font-weight:400;font-size:24px;margin:10px 0 14px;min-height:1.4em}
+.lbar{height:12px;background:var(--line);border-radius:8px;overflow:hidden;max-width:320px;margin:0 auto}
+.lbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--main),var(--violet),var(--mint));background-size:200% 100%;border-radius:8px;animation:load 1.9s ease-in-out forwards,shine 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes load{to{width:100%}}
+@keyframes shine{to{background-position:-200% 0}}
+
+/* 결과 공개 */
+.reveal-box{position:relative}
+.reveal-box .hero-thumb{animation:popIn .7s cubic-bezier(.2,1.4,.4,1) both}
+.reveal-box .hero-thumb .emo{animation:spinIn .9s cubic-bezier(.2,1.4,.4,1) both .15s}
+.sparkle{position:absolute;font-size:26px;color:var(--lemon);text-shadow:0 0 12px rgba(255,200,0,.6);animation:twinkle 1.8s ease-in-out infinite;z-index:2}
+.sparkle:nth-of-type(1){left:6%;top:8%}
+.sparkle:nth-of-type(2){right:8%;top:14%;animation-delay:-.6s;font-size:20px}
+.sparkle:nth-of-type(3){left:14%;bottom:10%;animation-delay:-1.2s;font-size:18px}
+.sparkle:nth-of-type(4){right:12%;bottom:14%;animation-delay:-.3s}
+@keyframes popIn{from{transform:scale(.6);opacity:0}}
+@keyframes spinIn{from{transform:scale(0) rotate(-200deg)}}
+@keyframes twinkle{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(1.2);opacity:1}}
+.result h1{animation:up .5s both .35s}
+.tags span{animation:up .45s both;animation-delay:calc(.5s + var(--d,0) * 80ms)}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+.ratio .row .b i{transform-origin:left;animation:grow .9s cubic-bezier(.2,.8,.2,1) both .4s}
+@keyframes grow{from{transform:scaleX(0)}}
+
+/* 친구 궁합 */
+.chem{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,var(--main-soft),var(--violet-soft));border-radius:20px;padding:16px 18px;margin-bottom:14px;text-align:left}
+.chem .ringc{--p:0;flex:none;width:92px;height:92px;border-radius:50%;background:conic-gradient(var(--main) calc(var(--p) * 1%),var(--line) 0);display:grid;place-items:center;transition:--p 1s}
+.chem .ringc b{width:72px;height:72px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-family:var(--display);font-size:24px;font-weight:400}
+.chem .pair2{font-size:28px;letter-spacing:4px}
+.chem p{margin:2px 0 0;font-size:14px}
+.btn-save{background:linear-gradient(90deg,var(--violet),var(--main));color:#fff;margin-top:10px}
+
+/* 월드컵 · 밸런스 · 타로 움직임 */
+.cand{animation:popIn .45s both}
+.cand[data-k="1"]{animation-delay:.08s}
+.cand.win{animation:winPulse .38s ease-out}
+@keyframes winPulse{50%{transform:scale(1.08)}}
+.vs-mark{animation:vsBeat 1.2s ease-in-out infinite}
+@keyframes vsBeat{50%{transform:translate(-50%,-50%) scale(1.12)}}
+.side{animation:popIn .45s both}
+.side.b{animation-delay:.08s}
+.tcard{animation:dealIn .55s both;animation-delay:calc(var(--d,0) * 120ms)}
+@keyframes dealIn{from{opacity:0;transform:translateY(-40px) rotate(-12deg)}}
+.tcard .tback::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 45%,transparent 60%);background-size:250% 100%;animation:shine 2.4s linear infinite}
+.topic b{display:inline-block;transition:transform .2s}
+.topic:hover b{transform:scale(1.25) rotate(-8deg)}
+.score{animation:popIn .6s cubic-bezier(.2,1.4,.4,1) both}
+.sound-on{color:var(--main)}
+
+/* 아이콘 · 3D 일러스트 */
+.ic{width:1.15em;height:1.15em;vertical-align:-.2em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ic.fill{fill:currentColor}
+.icon-btn .ic{width:20px;height:20px}
+.tabbar a b .ic{width:22px;height:22px}
+.sec h3 .ic,.side-rec h4 .ic,.more-title .ic{color:var(--main);margin-right:2px}
+.btn-line.liked .ic{fill:currentColor}
+.card .p .ic{width:13px;height:13px;vertical-align:-2px}
+.card .p .liked{color:var(--bad)}
+.logo-m{width:30px;display:block}
+.logo-m .mascot{width:30px}
+.art3d{object-fit:contain;filter:drop-shadow(0 10px 14px rgba(29,26,58,.18));user-select:none;-webkit-user-drag:none}
+.thumb img.art3d{width:62%;height:62%}
+.hero-thumb img.art3d{width:auto;height:66%}
+.cand .thumb img.art3d{width:64%;height:auto}
+.card:hover .art3d{animation:bob .9s ease-in-out infinite}
+.reveal-box .hero-thumb .art3d{animation:spinIn .9s cubic-bezier(.2,1.4,.4,1) both .15s}
+.art-xs{display:inline-block;width:1.35em;height:1.35em;vertical-align:-.3em;object-fit:contain}
+.mini .art3d,.mini img{width:36px;height:36px}
+.match .art3d{width:56px;height:56px;margin:6px auto}
+.crown .art3d{width:64px;height:64px;margin:0 auto}
+.topic b .art3d{width:44px;height:44px;margin:0 auto 6px}
+.tcard .front .art3d{width:70%;height:auto}
+.loading .orbit .art3d{width:30px;height:30px}
+.chem .pair2{display:flex;align-items:center;gap:4px}
+.chem .pair2 .art3d{width:40px;height:40px}
+.chem .pair2 .ic{color:var(--bad);fill:currentColor}
+.slide .art img{width:clamp(64px,12vw,120px);height:auto;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 12px 16px rgba(0,0,0,.25))}
+.slide .art img:nth-child(2){animation-delay:-1s;margin-top:40px}
+.slide .art img:nth-child(3){animation-delay:-2s}
+@media (min-width:1024px){.slide:not(:first-child) .art img{width:76px}}
+.explain b .ic{color:inherit}
+.ok-t{color:var(--ok)} .bad-t{color:var(--bad)}
+.topic b{display:block}
+.desc .dh{display:inline-block;color:var(--main);font-size:13.5px;margin-bottom:2px}
+.tcard.flip,.tcard.fade{animation:none}
+@media (max-width:639px){.slide .art{top:30px;right:14px;transform:none;gap:0}.slide .art img{width:58px}.slide .art img:nth-child(2){margin-top:22px}}
+@media (min-width:1024px){.slide:not(:first-child) .art{right:5%;transform:translateY(-50%)}.slide:not(:first-child) .art span{font-size:54px}.slide:not(:first-child) .art span:nth-child(2){margin-top:26px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+<header class="topbar"><div class="wrap" id="topbar"></div></header>
+<main class="wrap" id="view"></main>
+<footer class="wrap" id="footer"></footer>
+<nav class="tabbar" id="tabbar" aria-label="메뉴"></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   ★★★ 여기만 고치면 됩니다 ★★★
+   · 이미지 칸(thumb, image, aImage, bImage, logo)에 사진 링크(URL)를 넣으면 사진으로,
+     비워 두면('') 색 배경 + 이모지로 자동 표시됩니다. 링크가 깨져도 이모지로 바뀝니다.
+   · 링크 예시: 'https://picsum.photos/seed/cafe/600/600'
+     GitHub 저장소에 올린 사진은 'images/cafe.jpg' 처럼 적으면 됩니다.
+   · date: 콘텐츠 등록일 (최신순 정렬에 사용), plays/likes: 표시용 기본 숫자
+   ===================================================================== */
+
+const SITE = {
+  name: '둥둥',
+  logo: '',
+  slogan: '심심할 땐 둥둥',
+  // 홈 마스코트가 번갈아 하는 말
+  greetings: ['안녕! 나는 둥둥이야', '오늘 기분은 어때?', '테스트 하나 어때?', '친구랑 궁합도 볼 수 있어!', '유학생 특집 테스트도 있어!', '결과는 이미지로 저장 가능!'],
+  homeTitle: '오늘은 뭘로\n나를 알아볼까?',
+  footer: '둥둥 · 수업 실습용으로 만든 사이트입니다. 결과는 재미로만 봐 주세요.',
+  shareText: '이거 해봐! 결과 완전 나야 ㅋㅋ',
+  banners: [
+    { tag: '인기 1위', title: '6문제로 찾는\n나의 음료BTI', sub: '결정장애 탈출 테스트', image: '', art: ['🧋', '🍓', '☕'], color: '#FF7A45', link: '#/play/drink-bti' },
+    { tag: '유학생 특집', title: '한국 유학\n생존 유형 테스트', sub: '나는 한국에서 어떻게 버틸까?', image: '', art: ['🧳', '🥢'], color: '#4F7CF7', link: '#/play/study-korea' },
+    { tag: '매일 새로', title: '오늘의 타로', sub: '연애 · 금전 · 학업운', image: '', art: ['🔮', '✨'], color: '#1D1A3A', link: '#/play/today-tarot' }
+  ]
+};
+
+const CATEGORIES = [
+  { key: 'all',      name: '전체',       icon: 'house' },
+  { key: 'test',     name: '심리테스트', icon: 'brain' },
+  { key: 'quiz',     name: '퀴즈',       icon: 'circle-help' },
+  { key: 'balance',  name: '밸런스게임', icon: 'scale' },
+  { key: 'worldcup', name: '월드컵',     icon: 'trophy' },
+  { key: 'tarot',    name: '타로',       icon: 'sparkles' }
+];
+// 휴대폰 · 태블릿 하단 탭 (5개)
+const TABS = [
+  { href: '#/', key: 'all', name: '홈', icon: 'house' },
+  { href: '#/c/test', key: 'test', name: '심테', icon: 'brain' },
+  { href: '#/c/balance', key: 'balance', name: '밸런스', icon: 'scale' },
+  { href: '#/c/worldcup', key: 'worldcup', name: '월드컵', icon: 'trophy' },
+  { href: '#/me', key: 'me', name: 'MY', icon: 'user' }
+];
+
+/* ---------------------------------------------------------------------
+   콘텐츠 목록
+   type: 'test' | 'quiz' | 'balance' | 'worldcup' | 'tarot'
+   --------------------------------------------------------------------- */
+const CONTENTS = [
+
+/* ================= 유학생 특집 (special: 'student') =================
+   special 값이 있으면 홈의 '유학생 특집' 칸에도 함께 보여요.            */
+{
+  id: 'study-korea', type: 'test', badge: 'NEW', date: '2026-09-27', special: 'student',
+  title: '한국 유학 생존 유형 테스트',
+  desc: '낯선 나라, 낯선 언어, 낯선 수업. 한국에서 하루하루 버티는 나만의 방식은 무엇일까요?',
+  thumb: '', emoji: '🧳', color: '#DCEBFF', plays: 318700, likes: 21340,
+  questions: [
+    { q: '인천공항에 막 도착했다.\n가장 먼저 하는 일은?', options: [
+      { text: '편의점에서 바나나우유부터 산다', score: { local: 2 } },
+      { text: '가족에게 "잘 도착했어" 영상통화', score: { home: 2 } },
+      { text: '같은 비행기 탄 유학생과 연락처 교환', score: { hub: 2 } },
+      { text: '미리 저장해 둔 경로대로 기숙사로 직행', score: { steady: 2 } } ] },
+    { q: '한국어 수업 첫날,\n선생님이 자기소개를 시켰다.', options: [
+      { text: '틀려도 괜찮아. 일단 길게 말해 본다', score: { local: 2 } },
+      { text: '어젯밤 외운 문장을 또박또박', score: { steady: 2 } },
+      { text: '옆 친구랑 눈 마주치고 같이 웃으며 넘긴다', score: { hub: 2 } },
+      { text: '우리나라 이야기로 분위기를 띄운다', score: { home: 2 } } ] },
+    { q: '추석 연휴,\n기숙사가 텅 비었다.', options: [
+      { text: '한국인 친구 고향집에 따라간다', score: { local: 2 } },
+      { text: '같은 나라 친구들과 고향 음식 파티', score: { home: 2 } },
+      { text: '여러 나라 친구들을 모아 부산 여행', score: { hub: 2 } },
+      { text: '조용해서 오히려 좋다. 밀린 과제 정리', score: { steady: 2 } } ] },
+    { q: '조별과제 단톡방,\n한국인 팀원들의 대화가 너무 빠르다.', options: [
+      { text: '번역기를 돌려서라도 바로 답장한다', score: { local: 2 } },
+      { text: '마지막에 정리해서 "제가 이 부분 할게요"', score: { steady: 2 } },
+      { text: '제일 친절한 팀원에게 개인 톡으로 물어본다', score: { hub: 2 } },
+      { text: '같은 나라 선배에게 어떻게 할지 물어본다', score: { home: 2 } } ] },
+    { q: '갑자기 향수병이 몰려온 밤,\n나는…', options: [
+      { text: '한국 드라마를 틀어 놓고 버틴다', score: { local: 2 } },
+      { text: '엄마한테 레시피를 물어 직접 요리한다', score: { home: 2 } },
+      { text: '"나와, 치킨 먹자" 친구에게 연락한다', score: { hub: 2 } },
+      { text: '일기를 쓰며 마음을 정리한다', score: { steady: 2 } } ] },
+    { q: '교수님이 수업 끝나고\n"질문 있는 사람?"이라고 물으셨다.', options: [
+      { text: '손 들고 바로 질문한다', score: { local: 2 } },
+      { text: '끝나고 교수님께 따로 찾아간다', score: { steady: 2 } },
+      { text: '친구들 질문을 모아서 대표로 물어본다', score: { hub: 2 } },
+      { text: '이메일로 천천히 정리해서 보낸다', score: { home: 1, steady: 1 } } ] },
+    { q: '이번 방학 계획은?', options: [
+      { text: '한국 곳곳을 여행하며 사투리 배우기', score: { local: 2 } },
+      { text: '고향에 돌아가 가족과 푹 쉬기', score: { home: 2 } },
+      { text: '친구 나라로 놀러 가기', score: { hub: 2 } },
+      { text: '어학 공부와 자격증으로 스펙 쌓기', score: { steady: 2 } } ] }
+  ],
+  results: {
+    local: { title: '현지인 빙의형', emoji: '🥢', color: '#FFE3D3', ratio: 27,
+      desc: '처음엔 낯설던 한국이 이제는 제2의 고향.\n줄임말도, 빨리빨리 문화도 어느새 몸에 배었어요. 한국인 친구들이 "너 진짜 외국인 맞아?"라고 묻는 게 일상이에요.\n\n가끔은 모국의 나를 챙기는 시간도 가져 보세요. 두 문화를 모두 가진 게 당신의 가장 큰 무기예요.',
+      tags: ['#적응력만렙', '#눈치백단', '#빨리빨리'], best: 'hub', worst: 'home' },
+    home: { title: '고향의 맛 수호자형', emoji: '🍲', color: '#FFF0C9', ratio: 23,
+      desc: '어디에 있든 나다움을 잃지 않는 사람.\n같은 나라 친구들에게 든든한 버팀목이 되어 주고, 한국 친구들에게 우리 문화를 알려 주는 작은 외교관이에요.\n\n용기 내서 한국 친구 한 명만 더 사귀어 보세요. 유학 생활이 두 배로 풍성해질 거예요.',
+      tags: ['#정체성지킴이', '#의리파', '#고향음식'], best: 'steady', worst: 'local' },
+    hub: { title: '글로벌 인맥 허브형', emoji: '🌐', color: '#DDF3EC', ratio: 26,
+      desc: '국적 상관없이 누구와도 금방 친해지는 연결의 달인.\n당신의 연락처에는 벌써 열 개가 넘는 나라가 있어요. 모임이 생기면 다들 당신부터 찾죠.\n\n넓은 인맥만큼 깊은 관계도 챙긴다면, 졸업 후 가장 큰 자산이 될 거예요.',
+      tags: ['#인싸', '#다국적', '#연결고리'], best: 'local', worst: 'steady' },
+    steady: { title: '묵묵한 성실 개척자형', emoji: '🧭', color: '#E4E8FF', ratio: 24,
+      desc: '계획을 세우고 한 걸음씩 나아가는 조용한 강자.\n낯선 환경일수록 더 꼼꼼해지고, 결국 성적과 결과로 증명해요.\n\n혼자 다 짊어지지 않아도 괜찮아요. 힘들 땐 도움을 요청하는 것도 실력이에요.',
+      tags: ['#계획형', '#꾸준함', '#조용한강자'], best: 'home', worst: 'hub' }
+  }
+},
+{
+  id: 'korean-level', type: 'test', badge: 'HOT', date: '2026-09-23', special: 'student',
+  title: '내 한국어, 체감 몇 급일까?',
+  desc: '"밥 먹었어?"에 진짜 밥 얘기를 했다면? 생활 속 상황으로 알아보는 나의 한국어 체감 레벨.',
+  thumb: '', emoji: '💬', color: '#E6F4FF', plays: 284200, likes: 18760,
+  questions: [
+    { q: '한국 친구가 "밥 먹었어?"\n라고 물었다.', options: [
+      { text: '진짜 뭘 먹었는지 자세히 대답한다', score: { b1: 2 } },
+      { text: '안부 인사라는 건 안다', score: { b3: 2 } },
+      { text: '"먹었지~ 너는?" 자연스럽게 되묻는다', score: { b5: 2 } },
+      { text: '"아직ㅠ 같이 먹을래?"로 약속까지 잡는다', score: { b6: 2 } } ] },
+    { q: 'ㅋㅋ, ㄱㅅ, ㅇㅈ 같은\n초성을 보면?', options: [
+      { text: '처음엔 암호인 줄 알았다', score: { b1: 2 } },
+      { text: 'ㅋㅋ 정도는 안다', score: { b3: 2 } },
+      { text: '대부분 알고 가끔 쓴다', score: { b5: 2 } },
+      { text: '나도 모르게 매일 쓰고 있다', score: { b6: 2 } } ] },
+    { q: '교수님께 이메일을\n보내야 할 때', options: [
+      { text: '번역기에 전부 맡긴다', score: { b1: 2 } },
+      { text: '인터넷 템플릿을 보고 조금 고친다', score: { b3: 2 } },
+      { text: '직접 쓰고 한국인 친구에게 검토받는다', score: { b5: 2 } },
+      { text: '"교수님, 안녕하십니까."부터 술술 나온다', score: { b6: 2 } } ] },
+    { q: '한국 예능을 볼 때', options: [
+      { text: '자막이 있어도 따라가기 벅차다', score: { b1: 2 } },
+      { text: '자막을 보면 대부분 이해한다', score: { b3: 2 } },
+      { text: '자막 없이도 웃긴 포인트를 안다', score: { b5: 2 } },
+      { text: '유행어를 한국 친구들보다 먼저 쓴다', score: { b6: 2 } } ] },
+    { q: '식당에서 주문할 때', options: [
+      { text: '손가락으로 메뉴판을 가리킨다', score: { b1: 2 } },
+      { text: '"이거 하나 주세요"는 자신 있다', score: { b3: 2 } },
+      { text: '"덜 맵게 해 주실 수 있나요?"도 가능', score: { b5: 2 } },
+      { text: '"이모~ 여기 반찬 좀 더 주세요!"', score: { b6: 2 } } ] },
+    { q: '한국인의 "괜찮아요"를\n들었을 때', options: [
+      { text: '말 그대로 괜찮다는 뜻이라고 생각한다', score: { b1: 2 } },
+      { text: '상황에 따라 다르다는 건 안다', score: { b3: 2 } },
+      { text: '말투로 거절인지 아닌지 구분한다', score: { b5: 2 } },
+      { text: '나도 거절할 때 "괜찮아요"를 쓴다', score: { b6: 2 } } ] }
+  ],
+  results: {
+    b1: { title: '한국어 새싹형 (체감 1~2급)', emoji: '🌱', color: '#E4F5DC', ratio: 18,
+      desc: '지금은 모든 게 새롭고 어려운 시기. 그래도 매일 조금씩 들리는 단어가 늘고 있어요.\n\n오늘 배운 표현 하나를 편의점에서 써 보세요. 작은 성공이 쌓이면 금방 자랍니다.\n\n* 재미로 보는 체감 레벨이며, 실제 TOPIK 등급과는 다를 수 있어요.',
+      tags: ['#성장중', '#용기만렙'], best: 'b5', worst: 'b6' },
+    b3: { title: '일상 자유형 (체감 3~4급)', emoji: '✏️', color: '#FFF3C9', ratio: 34,
+      desc: '생활은 이제 문제없어요! 수업도 대부분 따라가고, 친구들과 대화도 즐거워요.\n\n다음 단계는 뉘앙스. 드라마 대사를 따라 말해 보면 말투까지 자연스러워져요.\n\n* 재미로 보는 체감 레벨이며, 실제 TOPIK 등급과는 다를 수 있어요.',
+      tags: ['#생활한국어', '#자신감'], best: 'b6', worst: 'b1' },
+    b5: { title: '드라마 무자막형 (체감 5급)', emoji: '📺', color: '#E6E3FF', ratio: 30,
+      desc: '자막 없이 드라마를 보고, 발표도 한국어로 해내는 실력자.\n한국 친구들이 가끔 당신에게 맞춤법을 물어보기도 해요.\n\n* 재미로 보는 체감 레벨이며, 실제 TOPIK 등급과는 다를 수 있어요.',
+      tags: ['#무자막', '#발표가능'], best: 'b1', worst: 'b3' },
+    b6: { title: '한국인 빙의형 (체감 6급)', emoji: '🗣️', color: '#FFE0D6', ratio: 18,
+      desc: '초성, 줄임말, "괜찮아요"의 숨은 뜻까지 마스터.\n전화 너머로는 아무도 외국인인 줄 몰라요.\n\n이제 당신의 모국어와 한국어를 잇는 사람이 되어 보세요. 그 자체로 큰 경쟁력이에요.\n\n* 재미로 보는 체감 레벨이며, 실제 TOPIK 등급과는 다를 수 있어요.',
+      tags: ['#원어민급', '#줄임말장인'], best: 'b3', worst: 'b1' }
+  }
+},
+{
+  id: 'korea-food-bti', type: 'test', badge: '', date: '2026-09-19', special: 'student',
+  title: '유학생 인생 한식 테스트',
+  desc: '시험 끝난 날, 향수병 온 밤, 비 오는 오후. 한국에서 나를 버티게 해 준 소울푸드는?',
+  thumb: '', emoji: '🍙', color: '#FFE8D6', plays: 259800, likes: 16020,
+  questions: [
+    { q: '드디어 시험이 끝났다!\n오늘 저녁은?', options: [
+      { text: '친구들 모아서 고기 굽기', score: { meat: 2 } },
+      { text: '매운 걸로 스트레스 날리기', score: { spicy: 2 } },
+      { text: '뜨끈한 국물 한 그릇', score: { soup: 2 } },
+      { text: '편의점 신상 털기', score: { cvs: 2 } } ] },
+    { q: '한국 친구가\n"언제 밥 한번 먹자"고 했다.', options: [
+      { text: '진짜 약속으로 받아들이고 날짜를 정한다', score: { meat: 2 } },
+      { text: '"좋아!" 하고 바로 맛집 리스트를 보낸다', score: { spicy: 2 } },
+      { text: '인사말이라는 걸 이제는 안다', score: { soup: 2 } },
+      { text: '밥 말고 카페 가자고 한다', score: { cvs: 2 } } ] },
+    { q: '비 오는 날,\n혼자 있을 때', options: [
+      { text: '동네 국밥집으로 직행', score: { soup: 2 } },
+      { text: '배달앱에서 떡볶이 세트 주문', score: { spicy: 2 } },
+      { text: '편의점 라면 + 김밥 조합', score: { cvs: 2 } },
+      { text: '친구 불러서 삼겹살 파티', score: { meat: 2 } } ] },
+    { q: '한국 식문화 중\n가장 충격이었던 것은?', options: [
+      { text: '맵다면서 계속 먹는 한국인들', score: { spicy: 2 } },
+      { text: '반찬이 공짜로 계속 나온다', score: { soup: 2 } },
+      { text: '고기를 가위로 자른다', score: { meat: 2 } },
+      { text: '편의점 도시락의 놀라운 퀄리티', score: { cvs: 2 } } ] },
+    { q: '고향에 돌아가면\n제일 그리울 것 같은 건?', options: [
+      { text: '밤늦게까지 불 켜진 편의점', score: { cvs: 2 } },
+      { text: '고깃집에서 다 같이 떠들던 분위기', score: { meat: 2 } },
+      { text: '떡볶이 먹고 땀 흘리던 그 맛', score: { spicy: 2 } },
+      { text: '새벽에도 여는 국밥집', score: { soup: 2 } } ] }
+  ],
+  results: {
+    spicy: { title: '떡볶이 파이터형', emoji: '🌶️', color: '#FFD9D2', ratio: 29,
+      desc: '스트레스는 매운맛으로 날려 버리는 열정파.\n힘든 날일수록 더 크게 웃는 당신은 친구들의 비타민이에요.', tags: ['#맵부심', '#열정'], best: 'meat', worst: 'soup' },
+    meat: { title: '삼겹살 파티 호스트형', emoji: '🥓', color: '#FFE4D1', ratio: 27,
+      desc: '맛있는 건 여럿이 먹어야 제맛!\n모임을 만들고 고기 굽는 자리를 자연스럽게 이끄는 타입이에요.', tags: ['#모임장', '#집게담당'], best: 'spicy', worst: 'cvs' },
+    soup: { title: '든든한 국밥 철학자형', emoji: '🥣', color: '#F3EAD9', ratio: 22,
+      desc: '화려함보다 든든함.\n한 그릇의 온기로 하루를 버티는 속 깊은 사람이에요. 조용히 곁을 지켜 주는 친구로 유명해요.', tags: ['#든든함', '#속깊음'], best: 'cvs', worst: 'spicy' },
+    cvs: { title: '편의점 탐험가형', emoji: '🍙', color: '#E3F1FF', ratio: 22,
+      desc: '1+1 행사와 신상은 절대 놓치지 않는 생활의 달인.\n효율과 재미를 동시에 챙기는 똑똑한 유학생이에요.', tags: ['#1+1헌터', '#가성비'], best: 'soup', worst: 'meat' }
+  }
+},
+
+/* ================= 대학원 · 글로벌마케팅 ================= */
+{
+  id: 'gm-grad', type: 'test', badge: 'HOT', date: '2026-09-26', special: 'student',
+  title: '글로벌마케팅 대학원생 커리어 유형 테스트',
+  desc: '케이스 스터디, 팀 프로젝트, 논문, 그리고 졸업 후의 불안까지. 대학원 생활 속 진짜 나를 알아보고 나에게 맞는 마케팅 커리어를 찾아보세요.',
+  thumb: '', emoji: '🎓', color: '#E5E0FF', plays: 296400, likes: 19880,
+  questions: [
+    { q: '첫 수업, 교수님이\n해외 진출 실패 사례를 보여 주셨다.\n가장 먼저 드는 생각은?', options: [
+      { text: '데이터 없나? 전환율부터 보고 싶다', score: { data: 2 } },
+      { text: '브랜드 메시지가 현지 정서와 안 맞았네', score: { brand: 2 } },
+      { text: '진출 방식이나 현지 파트너 선택이 문제였을 거야', score: { strategy: 2 } },
+      { text: '이 현상, 선행 연구에서는 어떻게 설명할까?', score: { research: 2 } } ] },
+    { q: '팀 프로젝트에서\n내가 자연스럽게 맡는 역할은?', options: [
+      { text: '설문 분석, 엑셀과 통계 담당', score: { data: 2 } },
+      { text: '발표 자료 디자인과 스토리라인', score: { brand: 2 } },
+      { text: '방향을 잡고 일정을 조율하는 PM', score: { strategy: 2 } },
+      { text: '이론적 배경과 참고문헌 정리', score: { research: 2 } } ] },
+    { q: '이번 학기\n가장 기대되는 수업은?', options: [
+      { text: 'A/B 테스트와 디지털 애널리틱스', score: { data: 2 } },
+      { text: '글로벌 브랜드 관리와 콘텐츠 마케팅', score: { brand: 2 } },
+      { text: '국제 시장 진입 전략', score: { strategy: 2 } },
+      { text: '소비자 행동론과 연구 방법론', score: { research: 2 } } ] },
+    { q: '발표 전날 밤 11시,\n나는…', options: [
+      { text: '그래프 숫자를 한 번 더 검증한다', score: { data: 2 } },
+      { text: '슬라이드 폰트와 색을 다시 맞춘다', score: { brand: 2 } },
+      { text: '예상 질문 리스트를 만들어 답을 준비한다', score: { strategy: 2 } },
+      { text: '인용한 논문의 출처를 다시 확인한다', score: { research: 2 } } ] },
+    { q: '교수님이 물으셨다.\n"그 주장의 근거가 뭔가요?"', options: [
+      { text: '실험 결과와 수치로 답한다', score: { data: 2 } },
+      { text: '실제 소비자 반응 사례로 설득한다', score: { brand: 2 } },
+      { text: '시장 규모와 경쟁 구도를 근거로 든다', score: { strategy: 2 } },
+      { text: '관련 이론과 선행 연구를 인용한다', score: { research: 2 } } ] },
+    { q: '대학원 생활이\n가장 힘들게 느껴질 때는?', options: [
+      { text: '데이터가 모이지 않아 분석을 못 할 때', score: { data: 2 } },
+      { text: '내 아이디어가 너무 평범하게 느껴질 때', score: { brand: 2 } },
+      { text: '할 일이 쌓여 우선순위가 무너질 때', score: { strategy: 2 } },
+      { text: '논문을 읽을수록 나만 모르는 것 같을 때', score: { research: 2 } } ] },
+    { q: '번아웃이 왔다.\n나를 회복시키는 방법은?', options: [
+      { text: '루틴을 다시 짜고 체크리스트를 채운다', score: { data: 2 } },
+      { text: '전시회나 팝업스토어를 구경 간다', score: { brand: 2 } },
+      { text: '낯선 도시에 가서 현지 가게들을 관찰한다', score: { strategy: 2 } },
+      { text: '조용한 카페에서 좋아하는 책을 읽는다', score: { research: 2 } } ] },
+    { q: '졸업을 앞두고\n인턴 제안이 왔다. 가장 끌리는 곳은?', options: [
+      { text: '성과가 숫자로 바로 보이는 스타트업 그로스팀', score: { data: 2 } },
+      { text: '글로벌 브랜드의 마케팅팀', score: { brand: 2 } },
+      { text: '해외 진출 프로젝트를 하는 컨설팅 회사', score: { strategy: 2 } },
+      { text: '연구소 인턴, 또는 박사 과정 준비', score: { research: 2 } } ] },
+    { q: '졸업이 다가올수록\n가장 크게 드는 걱정은?', options: [
+      { text: '내 스킬이 금방 AI 툴로 대체되진 않을까', score: { data: 2 } },
+      { text: '내 감각이 실제 시장에서도 통할까', score: { brand: 2 } },
+      { text: '어느 나라, 어느 산업에서 시작해야 할까', score: { strategy: 2 } },
+      { text: '연구를 계속할 수 있는 자리가 있을까', score: { research: 2 } } ] },
+    { q: '5년 뒤 링크드인 프로필에\n쓰고 싶은 한 줄은?', options: [
+      { text: '"실험으로 전환율을 세 배 키운 그로스 리드"', score: { data: 2 } },
+      { text: '"글로벌 캠페인을 이끈 브랜드 매니저"', score: { brand: 2 } },
+      { text: '"여러 나라 진출 전략을 설계한 컨설턴트"', score: { strategy: 2 } },
+      { text: '"국제 학술지에 논문을 실은 연구자"', score: { research: 2 } } ] }
+  ],
+  results: {
+    data: { title: '데이터로 말하는 그로스 마케터형', emoji: '📊', color: '#DDEBFF', ratio: 28,
+      desc: '[대학원에서]\n숫자가 맞지 않으면 잠이 안 오는 타입. 팀 프로젝트에서 당신이 분석을 맡으면 모두가 안심해요.\n\n[졸업 후]\n가설을 세우고, 실험하고, 개선하는 일이 체질이에요. 작은 A/B 테스트 하나로 큰 성과를 만들어 내는 사람.\n\n[어울리는 직무]\n퍼포먼스 마케터 · 그로스 마케터 · CRM 마케터 · 마케팅 데이터 분석가\n\n[둥둥의 한 마디]\n숫자 뒤에 있는 사람의 마음까지 읽을 수 있다면, 당신은 어떤 툴로도 대체할 수 없는 마케터가 될 거예요.',
+      tags: ['#데이터드리븐', '#AB테스트', '#실험정신'], best: 'brand', worst: 'research' },
+    brand: { title: '마음을 움직이는 브랜드 스토리텔러형', emoji: '💎', color: '#FFE3EC', ratio: 25,
+      desc: '[대학원에서]\n같은 자료도 당신 손을 거치면 이야기가 돼요. 발표 때마다 "슬라이드 누가 만들었어?"라는 질문을 받죠.\n\n[졸업 후]\n소비자의 감정을 읽고 브랜드의 목소리를 만드는 일에서 가장 빛나요. 나라가 달라도 통하는 메시지를 찾아내는 사람.\n\n[어울리는 직무]\n브랜드 매니저 · 콘텐츠 마케터 · 캠페인 기획자 · 소셜미디어 마케터\n\n[둥둥의 한 마디]\n평범해 보이는 아이디어도 당신의 이야기를 입히면 특별해져요. 남과 비교하는 마음은 잠시 내려놓아도 괜찮아요.',
+      tags: ['#감성설계', '#스토리텔링', '#브랜딩'], best: 'data', worst: 'strategy' },
+    strategy: { title: '큰 그림을 그리는 글로벌 전략가형', emoji: '🗺️', color: '#DCF3EA', ratio: 27,
+      desc: '[대학원에서]\n팀이 길을 잃으면 가장 먼저 지도를 펼치는 사람. 일정과 역할을 정리하는 건 늘 당신 몫이에요.\n\n[졸업 후]\n여러 나라의 시장을 비교하고 진출 전략을 세우는 일에 강해요. 문화와 비즈니스를 함께 보는 시야가 최고의 경쟁력.\n\n[어울리는 직무]\n글로벌 마케팅 전략 · 해외사업 개발(BD) · 경영 컨설턴트 · 해외영업\n\n[둥둥의 한 마디]\n모든 걸 다 잘하려고 하지 않아도 돼요. 무엇을 먼저 할지 정하는 힘, 그게 바로 당신의 전략이에요.',
+      tags: ['#큰그림', '#리더십', '#글로벌시야'], best: 'research', worst: 'brand' },
+    research: { title: '깊이 파고드는 소비자 연구자형', emoji: '🔬', color: '#EDE6FF', ratio: 20,
+      desc: '[대학원에서]\n"왜 그럴까?"라는 질문을 끝까지 놓지 않는 사람. 참고문헌 정리는 당신을 따라올 사람이 없어요.\n\n[졸업 후]\n소비자의 행동 뒤에 숨은 이유를 찾는 일에서 빛나요. 기업의 의사결정을 뒷받침하는 단단한 인사이트를 만드는 사람.\n\n[어울리는 직무]\n소비자 인사이트 리서처 · UX 리서처 · 시장조사 애널리스트 · 박사 과정 진학\n\n[둥둥의 한 마디]\n"나만 모르는 것 같다"는 느낌은 제대로 공부하고 있다는 증거예요. 당신은 이미 충분히 잘하고 있어요.',
+      tags: ['#인사이트', '#탐구심', '#논문러'], best: 'strategy', worst: 'data' }
+  }
+},
+
+/* ================= 심리테스트 ================= 
+   options[].score : 어떤 결과에 몇 점을 줄지
+   results[키].best / worst : 잘 맞는 · 안 맞는 유형 키
+   results[키].ratio : 전체 참여자 중 비율(%) — 표시용                         */
+{
+  id: 'drink-bti', type: 'test', badge: 'HOT', date: '2026-09-20',
+  title: '6문제로 찾는 나의 음료BTI',
+  desc: '메뉴판 앞에서 5분째 고민 중이라면? 질문 여섯 개로 지금 나에게 딱 맞는 한 잔을 찾아드려요.',
+  thumb: '', emoji: '🧋', color: '#FFD8C2', plays: 128400, likes: 8421,
+  questions: [
+    { q: '알람이 울렸다.\n오늘 아침 나의 첫 마디는?', image: '', options: [
+      { text: '"좋아, 오늘도 간다!" 바로 기상', score: { strawberry: 2 } },
+      { text: '"5분만…" 스누즈 세 번째', score: { brown: 2 } },
+      { text: '말없이 일정부터 확인한다', score: { americano: 2 } },
+      { text: '창밖 날씨부터 본다', score: { chamomile: 2 } } ] },
+    { q: '카페 문을 열고 들어갔다.\n제일 먼저 보는 건?', image: '', options: [
+      { text: '신메뉴 포스터', score: { strawberry: 2 } },
+      { text: '빈 콘센트 자리', score: { americano: 2 } },
+      { text: '디저트 쇼케이스', score: { brown: 2 } },
+      { text: '햇살 드는 창가 자리', score: { chamomile: 2 } } ] },
+    { q: '단 거 vs 쓴 거,\n평소 내 입맛은?', image: '', options: [
+      { text: '인생은 쓰니까 음료는 달게', score: { brown: 1, strawberry: 1 } },
+      { text: '쌉쌀한 게 어른의 맛', score: { americano: 1, chamomile: 1 } } ] },
+    { q: '과제 마감 3시간 전,\n나는 지금…', image: '', options: [
+      { text: '이미 제출 완료. 여유롭게 산책', score: { chamomile: 2 } },
+      { text: '카페인 풀충전하고 전력 질주', score: { americano: 2 } },
+      { text: '친구랑 통화하며 같이 하는 중', score: { strawberry: 2 } },
+      { text: '간식 먹으며 천천히 시작', score: { brown: 2 } } ] },
+    { q: '친구가 갑자기 고민 상담을 한다.\n내 반응은?', image: '', options: [
+      { text: '일단 맛있는 거 먹으러 가자', score: { brown: 2 } },
+      { text: '문제를 정리해서 해결책을 준다', score: { americano: 2 } },
+      { text: '같이 화내고 같이 운다', score: { strawberry: 2 } },
+      { text: '조용히 끝까지 들어준다', score: { chamomile: 2 } } ] },
+    { q: '지금 나에게\n가장 필요한 한 가지는?', image: '', options: [
+      { text: '카페인 수혈', score: { americano: 2 } },
+      { text: '당 충전', score: { brown: 2 } },
+      { text: '마음의 평화', score: { chamomile: 2 } },
+      { text: '기분 전환', score: { strawberry: 2 } } ] }
+  ],
+  results: {
+    brown: { title: '나른한 오후의 흑당라떼형', emoji: '🧋', color: '#F3E1CF', image: '', ratio: 31,
+      desc: '바쁜 하루 속에서도 나만의 여유를 챙기는 당신.\n남들이 뛰어갈 때 한 박자 쉬어갈 줄 알고, 그 덕에 주변 사람들도 편안함을 느껴요.\n\n달콤하고 쫀득한 한 잔이면 다시 힘이 나는 타입!',
+      tags: ['#여유만만', '#달달파', '#디저트필수'], best: 'americano', worst: 'chamomile', cta: { text: '추천 음료 보러 가기', link: '' } },
+    americano: { title: '마감 직전 카페인 전사형', emoji: '☕', color: '#E4DDD6', image: '', ratio: 27,
+      desc: '해야 할 일은 끝까지 해내는 타입.\n목표가 정해지면 누구보다 빠르게 몰입하고, 결과로 보여주는 걸 좋아해요.\n\n군더더기 없이 진한 한 잔이 제일 잘 어울려요.',
+      tags: ['#갓생러', '#샷추가', '#계획형'], best: 'brown', worst: 'strawberry', cta: { text: '추천 음료 보러 가기', link: '' } },
+    strawberry: { title: '기분 전환 러블리형', emoji: '🍓', color: '#FFD9E0', image: '', ratio: 24,
+      desc: '주변 분위기를 밝게 만드는 에너지의 소유자.\n새로운 것에 호기심이 많고, 좋은 건 꼭 친구와 나눠야 직성이 풀려요.\n\n보기만 해도 기분 좋아지는 핑크빛 한 잔이 딱!',
+      tags: ['#분위기메이커', '#사진필수', '#신메뉴러버'], best: 'chamomile', worst: 'americano', cta: { text: '추천 음료 보러 가기', link: '' } },
+    chamomile: { title: '힐링이 필요한 감성형', emoji: '🍵', color: '#FBEFC8', image: '', ratio: 18,
+      desc: '섬세하고 공감 능력이 뛰어난 당신.\n다른 사람의 마음을 잘 알아채지만 정작 내 마음은 뒤로 미루곤 해요.\n\n오늘은 따뜻한 허브티와 함께 잠깐 쉬어가도 괜찮아요.',
+      tags: ['#힐링', '#감성충전', '#리스너'], best: 'strawberry', worst: 'brown', cta: { text: '추천 음료 보러 가기', link: '' } }
+  }
+},
+{
+  id: 'love-style', type: 'test', badge: 'HOT', date: '2026-09-12',
+  title: '연애할 때 나는 어떤 스타일?',
+  desc: '썸부터 연애까지, 사랑 앞에서 드러나는 진짜 내 모습을 알아봐요.',
+  thumb: '', emoji: '💘', color: '#FFD6E2', plays: 187300, likes: 12904,
+  questions: [
+    { q: '썸 타는 사람에게서\n연락이 3시간째 없다.', image: '', options: [
+      { text: '"뭐해?" 먼저 보낸다', score: { bulldozer: 2 } },
+      { text: '나도 똑같이 3시간 뒤에 답한다', score: { tactician: 2 } },
+      { text: '바쁜가 보다. 신경 안 쓴다', score: { comfy: 2 } },
+      { text: '괜히 인스타 스토리를 올린다', score: { tsundere: 2 } } ] },
+    { q: '첫 데이트 장소를\n고른다면?', image: '', options: [
+      { text: '미리 예약한 분위기 좋은 레스토랑', score: { tactician: 2 } },
+      { text: '상대가 가고 싶다던 곳', score: { tsundere: 2 } },
+      { text: '편하게 동네 산책하고 떡볶이', score: { comfy: 2 } },
+      { text: '놀이공원! 설렘 최대치로', score: { bulldozer: 2 } } ] },
+    { q: '애인이 "나 살찐 것 같아"\n라고 말한다면?', image: '', options: [
+      { text: '"전혀! 지금이 제일 예뻐/멋있어"', score: { bulldozer: 2 } },
+      { text: '"그럼 같이 운동할까?"', score: { comfy: 2 } },
+      { text: '"음… 조금?" 하고 웃는다', score: { tsundere: 2 } },
+      { text: '대답 대신 맛있는 걸 사준다', score: { tactician: 1, tsundere: 1 } } ] },
+    { q: '싸웠을 때\n나의 모습은?', image: '', options: [
+      { text: '그 자리에서 바로 풀어야 한다', score: { bulldozer: 2 } },
+      { text: '생각 정리할 시간이 필요하다', score: { tactician: 2 } },
+      { text: '말은 차갑게 해도 몰래 챙긴다', score: { tsundere: 2 } },
+      { text: '금방 잊고 밥 먹자고 한다', score: { comfy: 2 } } ] },
+    { q: '기념일 선물로\n가장 받고 싶은 건?', image: '', options: [
+      { text: '직접 쓴 손편지', score: { tsundere: 2 } },
+      { text: '내가 말했던 걸 기억한 선물', score: { tactician: 2 } },
+      { text: '함께 가는 여행', score: { bulldozer: 2 } },
+      { text: '선물보다 같이 있는 시간', score: { comfy: 2 } } ] },
+    { q: '친구들이 말하는\n연애할 때 나는?', image: '', options: [
+      { text: '"완전 딴사람 돼"', score: { bulldozer: 2 } },
+      { text: '"평소랑 똑같아"', score: { comfy: 2 } },
+      { text: '"속을 알 수가 없어"', score: { tactician: 2 } },
+      { text: '"티 안 내는데 다 해줘"', score: { tsundere: 2 } } ] },
+    { q: '연인과의 연락 빈도,\n나에게 딱 좋은 건?', image: '', options: [
+      { text: '틈날 때마다 실시간 공유', score: { bulldozer: 2 } },
+      { text: '하루 몇 번이면 충분', score: { comfy: 1, tactician: 1 } },
+      { text: '연락보다 만났을 때가 중요', score: { tsundere: 2 } } ] }
+  ],
+  results: {
+    bulldozer: { title: '직진 불도저형', emoji: '🚜', color: '#FFE0CC', image: '', ratio: 26,
+      desc: '좋아하면 숨기지 못하는 솔직함이 최고의 무기.\n밀당보다는 진심으로 다가가고, 표현도 아끼지 않아요.\n\n가끔은 상대의 속도에 맞춰 한 템포 쉬어 가면 더 완벽해요.',
+      tags: ['#직진', '#표현왕', '#올인'], best: 'tsundere', worst: 'tactician' },
+    tactician: { title: '밀당 고수 전략가형', emoji: '♟️', color: '#E3E6FF', image: '', ratio: 21,
+      desc: '상대의 마음을 읽는 눈치가 빠르고, 관계의 흐름을 조절할 줄 알아요.\n쉽게 마음을 열진 않지만 한번 열면 누구보다 세심해요.\n\n너무 재다가 타이밍을 놓치지 않게 조심!',
+      tags: ['#밀당', '#센스', '#계획적'], best: 'comfy', worst: 'bulldozer' },
+    tsundere: { title: '츤데레 수호천사형', emoji: '😼', color: '#FFF1C7', image: '', ratio: 24,
+      desc: '겉으로는 무심한 척, 속으로는 다 챙기는 타입.\n말보다 행동으로 사랑을 보여주고, 상대가 힘들 때 가장 먼저 나타나요.\n\n가끔은 말로도 표현해 주면 상대가 감동할 거예요.',
+      tags: ['#겉차속따', '#행동파', '#은근다정'], best: 'bulldozer', worst: 'comfy' },
+    comfy: { title: '베프 같은 편안형', emoji: '🛋️', color: '#DDF5EC', image: '', ratio: 29,
+      desc: '연인이자 가장 친한 친구가 되는 타입.\n같이 있으면 긴장이 풀리고, 사소한 일상도 즐겁게 만들어요.\n\n오래 갈수록 빛나는 연애를 하는 사람!',
+      tags: ['#오래가는연애', '#편안함', '#티키타카'], best: 'tactician', worst: 'tsundere' }
+  }
+},
+{
+  id: 'mbti-lite', type: 'test', badge: 'NEW', date: '2026-09-25',
+  title: '12문항 초간단 MBTI',
+  desc: '긴 검사는 부담스럽다면? 일상 상황 12개로 알아보는 나의 MBTI.',
+  thumb: '', emoji: '🧩', color: '#E4E0FF', plays: 243100, likes: 15022,
+  // axes가 있으면 각 축(E/I, S/N, T/F, J/P)에서 점수가 높은 글자를 모아 결과를 만듭니다
+  axes: ['EI', 'SN', 'TF', 'JP'],
+  questions: [
+    { q: '금요일 저녁,\n갑자기 약속이 취소됐다.', options: [ { text: '다른 친구한테 바로 연락한다', score: { E: 1 } }, { text: '오히려 좋아. 집에서 쉰다', score: { I: 1 } } ] },
+    { q: '처음 간 모임에서\n나는 보통…', options: [ { text: '먼저 말을 걸고 분위기를 띄운다', score: { E: 1 } }, { text: '누가 말 걸어주길 기다린다', score: { I: 1 } } ] },
+    { q: '에너지가 방전됐을 때\n충전하는 방법은?', options: [ { text: '사람들 만나서 수다 떨기', score: { E: 1 } }, { text: '혼자 이불 속에서 영상 보기', score: { I: 1 } } ] },
+    { q: '새 가구를 조립할 때\n나는?', options: [ { text: '설명서를 순서대로 따라 한다', score: { S: 1 } }, { text: '대충 그림 보고 감으로 한다', score: { N: 1 } } ] },
+    { q: '"사과" 하면\n먼저 떠오르는 건?', options: [ { text: '빨갛다, 달다, 아삭하다', score: { S: 1 } }, { text: '뉴턴, 백설공주, 사과문', score: { N: 1 } } ] },
+    { q: '멍 때릴 때\n머릿속은?', options: [ { text: '진짜 아무 생각 없음', score: { S: 1 } }, { text: '좀비 사태 나면 어디로 도망갈지 생각', score: { N: 1 } } ] },
+    { q: '친구가 "나 시험 망쳤어"\n라고 하면?', options: [ { text: '"몇 점인데? 재시험은 있어?"', score: { T: 1 } }, { text: '"헐 괜찮아? 많이 속상하겠다"', score: { F: 1 } } ] },
+    { q: '팀플에서 의견이\n갈릴 때 나는?', options: [ { text: '근거가 더 확실한 쪽을 고른다', score: { T: 1 } }, { text: '다들 기분 상하지 않게 조율한다', score: { F: 1 } } ] },
+    { q: '영화를 보고 나서\n하는 말은?', options: [ { text: '"설정에 구멍이 좀 있던데?"', score: { T: 1 } }, { text: '"주인공 너무 불쌍해…"', score: { F: 1 } } ] },
+    { q: '여행 계획을\n세울 때 나는?', options: [ { text: '시간표 단위로 동선까지 짠다', score: { J: 1 } }, { text: '숙소만 잡고 가서 정한다', score: { P: 1 } } ] },
+    { q: '내 책상 상태는?', options: [ { text: '물건마다 자리가 정해져 있다', score: { J: 1 } }, { text: '어질러져 있지만 어디 뭐 있는지 안다', score: { P: 1 } } ] },
+    { q: '과제가 나왔다.\n언제 시작할까?', options: [ { text: '나온 날 바로 계획부터 세운다', score: { J: 1 } }, { text: '마감의 압박이 나를 움직인다', score: { P: 1 } } ] }
+  ],
+  results: {
+    ISTJ: { title: 'ISTJ · 믿음직한 원칙주의자', emoji: '📋', color: '#E3E9F2', desc: '약속과 규칙을 소중히 여기는 책임감의 아이콘.\n한번 맡은 일은 끝까지 해내요.', tags: ['#책임감', '#계획표'], ratio: 9, best: 'ESFP', worst: 'ENFP' },
+    ISFJ: { title: 'ISFJ · 다정한 수호자', emoji: '🛡️', color: '#FCE7E1', desc: '말없이 주변을 챙기는 따뜻한 사람.\n고마움을 잘 기억하고 꼭 갚아요.', tags: ['#배려왕', '#섬세함'], ratio: 10, best: 'ESTP', worst: 'ENTP' },
+    INFJ: { title: 'INFJ · 조용한 통찰가', emoji: '🔭', color: '#E6E1FA', desc: '사람의 마음을 꿰뚫어 보는 깊은 시선.\n조용하지만 확고한 신념이 있어요.', tags: ['#통찰력', '#이상주의'], ratio: 5, best: 'ENTP', worst: 'ESTP' },
+    INTJ: { title: 'INTJ · 치밀한 전략가', emoji: '♟️', color: '#E0E4F0', desc: '큰 그림을 그리고 한 수 앞을 내다보는 타입.\n효율 없는 건 참기 힘들어요.', tags: ['#전략', '#독립적'], ratio: 4, best: 'ENFP', worst: 'ESFP' },
+    ISTP: { title: 'ISTP · 만능 해결사', emoji: '🔧', color: '#E4EEE8', desc: '문제가 생기면 조용히 뚝딱 고쳐내는 실용파.\n말보다 손이 빨라요.', tags: ['#효율', '#쿨함'], ratio: 6, best: 'ESFJ', worst: 'ENFJ' },
+    ISFP: { title: 'ISFP · 감성 예술가', emoji: '🎨', color: '#FDEBD8', desc: '지금 이 순간의 아름다움을 즐길 줄 아는 사람.\n취향이 분명하고 자유로워요.', tags: ['#감성', '#자유로움'], ratio: 8, best: 'ENFJ', worst: 'ENTJ' },
+    INFP: { title: 'INFP · 꿈꾸는 중재자', emoji: '🌙', color: '#E9E3FB', desc: '마음속에 나만의 세계가 있는 낭만가.\n진심이 통하는 관계를 원해요.', tags: ['#낭만', '#공감'], ratio: 8, best: 'ENFJ', worst: 'ESTJ' },
+    INTP: { title: 'INTP · 호기심 많은 사색가', emoji: '🧪', color: '#E1ECF7', desc: '"왜?"라는 질문을 멈추지 않는 탐구자.\n관심 분야에선 끝까지 파고들어요.', tags: ['#논리', '#탐구'], ratio: 5, best: 'ENTJ', worst: 'ESFJ' },
+    ESTP: { title: 'ESTP · 행동파 모험가', emoji: '🏄', color: '#FFE3CF', desc: '생각보다 몸이 먼저 움직이는 에너자이저.\n위기 상황에서 오히려 빛나요.', tags: ['#행동력', '#순발력'], ratio: 5, best: 'ISFJ', worst: 'INFJ' },
+    ESFP: { title: 'ESFP · 타고난 연예인', emoji: '🎤', color: '#FFE0EA', desc: '어디서든 분위기를 살리는 인싸.\n즐거움을 나누는 게 행복이에요.', tags: ['#분위기메이커', '#흥'], ratio: 7, best: 'ISTJ', worst: 'INTJ' },
+    ENFP: { title: 'ENFP · 재기발랄 활동가', emoji: '🎉', color: '#FFF0C4', desc: '아이디어가 샘솟는 호기심 부자.\n사람을 좋아하고 새로운 시작에 설레요.', tags: ['#열정', '#아이디어'], ratio: 8, best: 'INTJ', worst: 'ISTJ' },
+    ENTP: { title: 'ENTP · 뜨거운 토론가', emoji: '💡', color: '#FFF4D6', desc: '고정관념을 깨는 발상의 달인.\n말싸움에서 지는 법이 없어요.', tags: ['#창의력', '#말발'], ratio: 4, best: 'INFJ', worst: 'ISFJ' },
+    ESTJ: { title: 'ESTJ · 엄격한 관리자', emoji: '📣', color: '#E6ECF5', desc: '체계와 질서로 팀을 이끄는 리더.\n일 처리가 확실하고 빨라요.', tags: ['#리더십', '#추진력'], ratio: 7, best: 'ISFP', worst: 'INFP' },
+    ESFJ: { title: 'ESFJ · 사교적인 외교관', emoji: '🤝', color: '#FFE6DC', desc: '모두가 편안하도록 챙기는 분위기 조율사.\n생일은 절대 안 잊어요.', tags: ['#친화력', '#챙김'], ratio: 8, best: 'ISTP', worst: 'INTP' },
+    ENFJ: { title: 'ENFJ · 정의로운 사회운동가', emoji: '🌟', color: '#FFEFD2', desc: '사람들의 가능성을 믿고 이끌어 주는 멘토.\n말 한마디로 힘을 줘요.', tags: ['#리더', '#공감력'], ratio: 3, best: 'INFP', worst: 'ISTP' },
+    ENTJ: { title: 'ENTJ · 대담한 통솔자', emoji: '👑', color: '#E4E2F5', desc: '목표를 정하면 길을 만들어서라도 가는 추진력.\n타고난 보스 기질이 있어요.', tags: ['#카리스마', '#목표지향'], ratio: 3, best: 'INTP', worst: 'ISFP' }
+  }
+},
+{
+  id: 'exam-type', type: 'test', badge: '', date: '2026-09-02',
+  title: '시험기간 생존 유형 테스트',
+  desc: '벼락치기 장인? 계획표 수집가? 시험기간이 되면 드러나는 나의 진짜 모습.',
+  thumb: '', emoji: '📚', color: '#D9F3EA', plays: 54300, likes: 3120,
+  questions: [
+    { q: '시험 2주 전,\n나는?', options: [
+      { text: '계획표부터 형광펜으로 예쁘게', score: { planner: 2 } }, { text: '아직 2주나 남았는데?', score: { lastmin: 2 } },
+      { text: '스터디원 모집 글을 올린다', score: { social: 2 } }, { text: '도서관 명당 자리부터 찾는다', score: { grinder: 2 } } ] },
+    { q: '공부하려고 폰을 뒤집어 놨다.\n정신 차려 보니…', options: [
+      { text: '10분 지나 있음. 양호', score: { grinder: 1, planner: 1 } }, { text: '숏폼 보다가 2시간 순삭', score: { lastmin: 2 } },
+      { text: '단톡방에서 족보 공유 중', score: { social: 2 } } ] },
+    { q: '공부하기 전\n꼭 하는 의식은?', options: [
+      { text: '책상 정리 30분', score: { planner: 2 } }, { text: '간식 사러 편의점', score: { lastmin: 2 } },
+      { text: '"공부 시작" 인증샷 올리기', score: { social: 2 } }, { text: '그냥 바로 앉는다', score: { grinder: 2 } } ] },
+    { q: '모르는 문제가 나왔다.', options: [
+      { text: '교재 처음부터 다시 본다', score: { grinder: 2 } }, { text: '친구한테 전화한다', score: { social: 2 } },
+      { text: '별표 치고 넘어간다', score: { lastmin: 2 } }, { text: '질문 리스트에 정리해 둔다', score: { planner: 2 } } ] },
+    { q: '시험 전날 밤,\n나의 모습은?', options: [
+      { text: '평소대로 자고 컨디션 관리', score: { planner: 2 } }, { text: '밤샘 + 에너지 음료 2캔', score: { lastmin: 2 } },
+      { text: '친구랑 전화로 서로 문제 내기', score: { social: 2 } }, { text: '마지막까지 오답노트 회독', score: { grinder: 2 } } ] },
+    { q: '시험 끝나고\n제일 먼저 하는 일은?', options: [
+      { text: '다음 시험 계획 세우기', score: { planner: 2 } }, { text: '기절하듯 12시간 수면', score: { lastmin: 2 } },
+      { text: '바로 뒤풀이 소집', score: { social: 2 } }, { text: '틀린 문제 확인', score: { grinder: 2 } } ] }
+  ],
+  results: {
+    planner: { title: '계획표 수집가형', emoji: '🗓️', color: '#E3EEFF', ratio: 22, desc: '시작은 누구보다 완벽한 당신.\n계획의 70%만 지켜도 이미 상위권이에요.\n\n오늘은 계획 세우기 말고 첫 페이지부터!', tags: ['#형광펜5색', '#플래너'], best: 'social', worst: 'lastmin' },
+    lastmin: { title: '벼락치기 장인형', emoji: '⚡', color: '#FFF1C2', ratio: 35, desc: '마감이 다가올수록 집중력이 폭발하는 타입.\n위기 상황에서 오히려 강해요.\n\n다음엔 벼락을 조금만 일찍 쳐 보는 걸로!', tags: ['#전날의기적', '#초집중'], best: 'grinder', worst: 'planner' },
+    social: { title: '스터디 반장형', emoji: '🙋', color: '#FFE0D3', ratio: 19, desc: '같이 할 때 더 잘하는 당신.\n설명하면서 제일 많이 배우는 건 사실 당신이에요.', tags: ['#인싸', '#족보공유'], best: 'planner', worst: 'grinder' },
+    grinder: { title: '도서관 지박령형', emoji: '🪑', color: '#DDF5EC', ratio: 24, desc: '묵묵히 앉아 끝까지 버티는 끈기의 아이콘.\n결국 결과로 증명하는 사람.\n\n가끔은 스트레칭도 잊지 마세요.', tags: ['#엉덩이력', '#오답노트'], best: 'lastmin', worst: 'social' }
+  }
+},
+{
+  id: 'animal-me', type: 'test', badge: '', date: '2026-08-28',
+  title: '나를 동물로 표현하면?',
+  desc: '친구들이 보는 나는 고양이일까, 강아지일까? 성격으로 알아보는 나의 동물 캐릭터.',
+  thumb: '', emoji: '🐾', color: '#FFE9D2', plays: 96800, likes: 6310,
+  questions: [
+    { q: '주말에 아무 약속이 없다.', options: [
+      { text: '너무 좋아. 하루 종일 뒹굴', score: { cat: 2 } }, { text: '심심해… 누구 불러야지', score: { dog: 2 } },
+      { text: '미뤄둔 취미 생활 시작', score: { otter: 2 } }, { text: '맛집 찾아 혼자 나들이', score: { bear: 2 } } ] },
+    { q: '단톡방에서 나는?', options: [
+      { text: '읽고 조용히 이모티콘만', score: { cat: 2 } }, { text: '제일 먼저 답장하는 사람', score: { dog: 2 } },
+      { text: '짤과 드립 담당', score: { otter: 2 } }, { text: '약속 잡으면 장소 정리 담당', score: { bear: 2 } } ] },
+    { q: '친구가 서운하다고 했다.', options: [
+      { text: '왜 서운한지 차분히 물어본다', score: { bear: 2 } }, { text: '바로 미안하다고 달려간다', score: { dog: 2 } },
+      { text: '웃긴 사과 짤을 보낸다', score: { otter: 2 } }, { text: '시간을 두고 행동으로 보여준다', score: { cat: 2 } } ] },
+    { q: '처음 보는 사람이\n말을 걸면?', options: [
+      { text: '경계 모드 ON', score: { cat: 2 } }, { text: '금방 친해진다', score: { dog: 2 } },
+      { text: '장난부터 친다', score: { otter: 2 } }, { text: '예의 바르게 대화', score: { bear: 2 } } ] },
+    { q: '내가 가장 행복한 순간은?', options: [
+      { text: '따뜻한 햇살 아래 낮잠', score: { cat: 2 } }, { text: '좋아하는 사람들과 함께할 때', score: { dog: 2 } },
+      { text: '새로운 걸 해볼 때', score: { otter: 2 } }, { text: '맛있는 걸 배불리 먹을 때', score: { bear: 2 } } ] }
+  ],
+  results: {
+    cat: { title: '도도한 고양이', emoji: '🐱', color: '#F1E6DA', ratio: 28, desc: '혼자만의 시간이 소중한 독립적인 매력.\n쉽게 곁을 내주진 않지만, 마음을 연 사람에겐 누구보다 다정해요.', tags: ['#독립적', '#츤데레'], best: 'bear', worst: 'dog' },
+    dog: { title: '해맑은 리트리버', emoji: '🐶', color: '#FFE9C7', ratio: 30, desc: '사람을 좋아하고 에너지가 넘치는 인기쟁이.\n당신이 있으면 어디든 분위기가 밝아져요.', tags: ['#댕댕미', '#친화력'], best: 'otter', worst: 'cat' },
+    otter: { title: '장난꾸러기 수달', emoji: '🦦', color: '#DCEFF5', ratio: 21, desc: '호기심 많고 재미를 만드는 아이디어 뱅크.\n지루한 걸 못 참는 자유로운 영혼이에요.', tags: ['#유쾌함', '#호기심'], best: 'dog', worst: 'bear' },
+    bear: { title: '듬직한 곰돌이', emoji: '🐻', color: '#EBDDCF', ratio: 21, desc: '느긋하고 믿음직한 모두의 버팀목.\n말수는 적어도 필요할 때 꼭 곁에 있어요.', tags: ['#든든함', '#먹방'], best: 'cat', worst: 'otter' }
+  }
+},
+
+/* ================= 퀴즈 (정답 있음) =================
+   answer: 정답 보기 번호(0부터 시작), explain: 해설
+   grades: 점수 구간별 칭호 (min 이상이면 해당)                            */
+{
+  id: 'spelling-quiz', type: 'quiz', badge: 'HOT', date: '2026-09-18',
+  title: '헷갈리는 맞춤법 능력고사',
+  desc: '카톡에서 자주 틀리는 맞춤법 10문제. 당신의 맞춤법 등급은?',
+  thumb: '', emoji: '✏️', color: '#E2F1FF', plays: 162700, likes: 9876,
+  questions: [
+    { q: '다음 중 맞는 표현은?', options: ['오늘 몇일이야?', '오늘 며칠이야?'], answer: 1, explain: '"몇일"은 틀린 표기예요. 항상 "며칠"로 씁니다.' },
+    { q: '빈칸에 알맞은 말은?\n"이제 집에 가도 ___?"', options: ['되', '돼'], answer: 1, explain: '"되어"로 바꿔 말이 되면 "돼"를 써요. "가도 되어?" → "가도 돼?"' },
+    { q: '다음 중 맞는 표현은?', options: ['금새 끝났어', '금세 끝났어'], answer: 1, explain: '"금시에"가 줄어든 말이라 "금세"가 맞아요.' },
+    { q: '다음 중 맞는 표현은?', options: ['왠지 기분이 좋아', '웬지 기분이 좋아'], answer: 0, explain: '"왜인지"가 줄어든 "왠지"가 맞아요. "웬"은 "웬일, 웬만큼"처럼 써요.' },
+    { q: '다음 중 맞는 표현은?', options: ['오랫만에 만났다', '오랜만에 만났다'], answer: 1, explain: '"오래간만"이 줄어든 말이라 "오랜만"이 맞아요.' },
+    { q: '다음 중 맞는 표현은?', options: ['설겆이 할게', '설거지 할게'], answer: 1, explain: '표준어는 "설거지"예요.' },
+    { q: '다음 중 맞는 표현은?', options: ['중요한 역할을 맡았다', '중요한 역활을 맡았다'], answer: 0, explain: '"역할(役割)"이 맞는 표기예요.' },
+    { q: '다음 중 맞는 표현은?', options: ['희한한 일이네', '희안한 일이네'], answer: 0, explain: '"희한하다(稀罕--)"가 맞아요.' },
+    { q: '빈칸에 알맞은 말은?\n"나 그거 ___ 했어"', options: ['안', '않'], answer: 0, explain: '"안"은 "아니"의 준말로 동사 앞에, "않"은 "-지 않다" 형태로 써요.' },
+    { q: '빈칸에 알맞은 말은?\n"지갑을 잃어버렸어. ___?"', options: ['어떡해', '어떻해'], answer: 0, explain: '"어떻게 해"가 줄어든 말은 "어떡해"예요. "어떻해"는 틀린 표기예요.' }
+  ],
+  grades: [
+    { min: 0, title: '맞춤법 새싹', desc: '괜찮아요, 오늘 배운 것만 기억해도 충분해요!' },
+    { min: 5, title: '맞춤법 중수', desc: '헷갈리는 몇 개만 잡으면 금방 고수!' },
+    { min: 8, title: '맞춤법 고수', desc: '단톡방 맞춤법 지킴이 인정!' },
+    { min: 10, title: '국어 선생님', desc: '만점! 친구들 카톡 검수는 당신 몫이에요.' }
+  ]
+},
+{
+  id: 'cafe-quiz', type: 'quiz', badge: 'NEW', date: '2026-09-24',
+  title: '카페 알바 상식 퀴즈',
+  desc: '매일 마시는 커피, 얼마나 알고 있나요? 카페 상식 6문제.',
+  thumb: '', emoji: '☕', color: '#EFE3D6', plays: 21400, likes: 1540,
+  questions: [
+    { q: '아메리카노는 어떻게 만들까?', options: ['에스프레소 + 우유', '에스프레소 + 물', '드립커피 + 얼음'], answer: 1, explain: '에스프레소에 물을 더해 연하게 만든 커피가 아메리카노예요.' },
+    { q: '이탈리아어 "latte(라떼)"의 뜻은?', options: ['커피', '거품', '우유'], answer: 2, explain: '"라떼"는 이탈리아어로 우유라는 뜻이에요.' },
+    { q: '카페라떼와 비교했을 때\n카푸치노의 특징은?', options: ['우유 거품이 더 많다', '물이 들어간다', '초콜릿이 들어간다'], answer: 0, explain: '카푸치노는 라떼보다 우유 거품층이 두껍고 풍성해요.' },
+    { q: '콜드브루는\n어떻게 추출할까?', options: ['뜨겁게 뽑아 얼음에 식힌다', '찬물로 오랜 시간 우린다', '에스프레소를 얼린다'], answer: 1, explain: '콜드브루는 찬물로 긴 시간 천천히 우려내 부드러운 맛이 나요.' },
+    { q: '카페모카에 들어가는\n특별한 재료는?', options: ['바닐라 시럽', '카라멜', '초콜릿'], answer: 2, explain: '모카는 에스프레소와 우유에 초콜릿을 더한 음료예요.' },
+    { q: '에스프레소의 고향으로\n알려진 나라는?', options: ['이탈리아', '브라질', '에티오피아'], answer: 0, explain: '에스프레소 머신과 문화는 이탈리아에서 발전했어요. 커피 원산지로는 에티오피아가 유명해요.' }
+  ],
+  grades: [
+    { min: 0, title: '손님 모드', desc: '마시는 게 제일 좋아! 이제 조금 알게 됐어요.' },
+    { min: 3, title: '카페 단골', desc: '메뉴판 정도는 술술 읽는 수준!' },
+    { min: 5, title: '바리스타 지망생', desc: '당장 알바 지원해도 되겠어요.' },
+    { min: 6, title: '헤드 바리스타', desc: '만점! 커피 이야기는 당신에게 물어볼게요.' }
+  ]
+},
+
+/* ================= 밸런스 게임 =================
+   aVotes/bVotes: 처음 보여줄 기본 득표수 (참여하면 이 기기에서 누적) */
+{
+  id: 'campus-balance', type: 'balance', badge: 'HOT', date: '2026-09-10',
+  title: '대학생 극한 밸런스 게임',
+  desc: '9시 수업 vs 저녁 6시 수업부터 팀플 지옥까지. 하나만 고르세요.',
+  thumb: '', emoji: '⚖️', color: '#E7E2FF', plays: 96100, likes: 7010,
+  items: [
+    { a: '매일 9시 수업', b: '매일 저녁 6시 수업', aVotes: 312, bVotes: 488 },
+    { a: '과제 없는 팀플', b: '팀플 없는 과제 3배', aVotes: 402, bVotes: 398 },
+    { a: '학교 5분 거리 반지하 원룸', b: '1시간 거리 햇살 가득 투룸', aVotes: 361, bVotes: 439 },
+    { a: '평생 학식 무료', b: '평생 교통비 무료', aVotes: 355, bVotes: 445 },
+    { a: '전공 A+, 교양 C', b: '전공 C, 교양 A+', aVotes: 520, bVotes: 280 },
+    { a: '말 안 통하는 천재 팀원', b: '착하지만 아무것도 안 하는 팀원', aVotes: 590, bVotes: 210 },
+    { a: '조별 발표 매주', b: '개인 발표 한 학기 1번 (1시간)', aVotes: 310, bVotes: 490 },
+    { a: '종강 후 3개월 방학', b: '방학 없이 3학년에 졸업', aVotes: 540, bVotes: 260 }
+  ]
+},
+{
+  id: 'food-balance', type: 'balance', badge: '', date: '2026-09-05',
+  title: '음식 밸런스 게임',
+  desc: '부먹 vs 찍먹, 민초까지. 오늘 단톡방 싸움 난다.',
+  thumb: '', emoji: '🍜', color: '#FFE9B8', plays: 71200, likes: 4380,
+  items: [
+    { a: '탕수육 부먹', b: '탕수육 찍먹', aVotes: 280, bVotes: 520 },
+    { a: '민트초코 평생 먹기', b: '민트초코 평생 금지', aVotes: 330, bVotes: 470 },
+    { a: '평생 라면만', b: '평생 떡볶이만', aVotes: 430, bVotes: 370 },
+    { a: '물렁한 복숭아', b: '딱딱한 복숭아', aVotes: 350, bVotes: 450 },
+    { a: '치킨 다리만 10개', b: '치킨 날개만 20개', aVotes: 610, bVotes: 190 },
+    { a: '평생 여름에 뜨거운 국물', b: '평생 겨울에 아이스 음료', aVotes: 380, bVotes: 420 },
+    { a: '짜장면 곱빼기', b: '짬뽕 곱빼기', aVotes: 410, bVotes: 390 }
+  ]
+},
+{
+  id: 'love-balance', type: 'balance', badge: 'NEW', date: '2026-09-22',
+  title: '연애 밸런스 게임',
+  desc: '애인의 이성 친구, 깻잎 논쟁까지. 연애관이 드러나는 선택들.',
+  thumb: '', emoji: '💞', color: '#FFDDE8', plays: 133500, likes: 10210,
+  items: [
+    { a: '연락 자주, 만남 가끔', b: '연락 가끔, 만남 자주', aVotes: 330, bVotes: 470 },
+    { a: '애인이 친구 깻잎 떼주기 OK', b: '절대 안 됨', aVotes: 360, bVotes: 440 },
+    { a: '나를 더 좋아하는 사람', b: '내가 더 좋아하는 사람', aVotes: 520, bVotes: 280 },
+    { a: '매일 5분 통화', b: '일주일에 한 번 1시간 통화', aVotes: 450, bVotes: 350 },
+    { a: '기념일 다 챙기는 애인', b: '기념일 신경 안 쓰는 애인', aVotes: 480, bVotes: 320 },
+    { a: '전 애인과 친구로 지내는 애인', b: '전 애인 얘기를 계속 하는 애인', aVotes: 300, bVotes: 500 }
+  ]
+},
+
+/* ================= 이상형 월드컵 =================
+   후보 수: 4, 8, 16, 32 (16강 이상이면 시작할 때 라운드를 고를 수 있어요) */
+{
+  id: 'night-food-cup', type: 'worldcup', badge: 'HOT', date: '2026-09-08',
+  title: '야식 월드컵 8강',
+  desc: '밤 11시, 딱 하나만 시킬 수 있다면?',
+  thumb: '', emoji: '🍗', color: '#FFDCC9', plays: 143900, likes: 9020,
+  candidates: [
+    { name: '치킨', emoji: '🍗', image: '', color: '#FFE2C7' }, { name: '떡볶이', emoji: '🌶️', image: '', color: '#FFD3CF' },
+    { name: '피자', emoji: '🍕', image: '', color: '#FFE7B3' }, { name: '라면', emoji: '🍜', image: '', color: '#FFF0C9' },
+    { name: '족발', emoji: '🐷', image: '', color: '#F7DCCF' }, { name: '마라탕', emoji: '🥘', image: '', color: '#FFD0C2' },
+    { name: '햄버거', emoji: '🍔', image: '', color: '#F9E3C4' }, { name: '곱창', emoji: '🔥', image: '', color: '#FFD9C0' }
+  ]
+},
+{
+  id: 'travel-cup', type: 'worldcup', badge: 'NEW', date: '2026-09-26',
+  title: '여행지 월드컵 16강',
+  desc: '국내부터 해외까지, 지금 당장 떠나고 싶은 여행지는?',
+  thumb: '', emoji: '✈️', color: '#D8ECFF', plays: 58800, likes: 4480,
+  candidates: [
+    { name: '제주', emoji: '🍊', image: '', color: '#FFE8C8' }, { name: '부산', emoji: '🌊', image: '', color: '#D6EEFF' },
+    { name: '강릉', emoji: '☕', image: '', color: '#E8E1D8' }, { name: '경주', emoji: '🏯', image: '', color: '#F3E3D3' },
+    { name: '여수', emoji: '🌃', image: '', color: '#DCE3FF' }, { name: '전주', emoji: '🍲', image: '', color: '#FFE3D6' },
+    { name: '속초', emoji: '🦑', image: '', color: '#D9F1F2' }, { name: '통영', emoji: '⛵', image: '', color: '#D8EBF7' },
+    { name: '도쿄', emoji: '🗼', image: '', color: '#FFE0E0' }, { name: '오사카', emoji: '🐙', image: '', color: '#FFE9D1' },
+    { name: '방콕', emoji: '🛕', image: '', color: '#FFF0C9' }, { name: '다낭', emoji: '🏖️', image: '', color: '#D6F3EC' },
+    { name: '파리', emoji: '🥐', image: '', color: '#EFE6FF' }, { name: '뉴욕', emoji: '🗽', image: '', color: '#DDEFE6' },
+    { name: '발리', emoji: '🌴', image: '', color: '#DFF5D8' }, { name: '타이베이', emoji: '🧋', image: '', color: '#F3E4D6' }
+  ]
+},
+{
+  id: 'cafe-drink-cup', type: 'worldcup', badge: '', date: '2026-08-30',
+  title: '카페 음료 월드컵',
+  desc: '카페에서 결국 시키는 그 음료는?',
+  thumb: '', emoji: '🥤', color: '#DFF3E8', plays: 38700, likes: 2210,
+  candidates: [
+    { name: '아이스 아메리카노', emoji: '🧊', image: '', color: '#E6E0DA' }, { name: '바닐라 라떼', emoji: '🥛', image: '', color: '#F6EEDF' },
+    { name: '딸기 라떼', emoji: '🍓', image: '', color: '#FFDDE4' }, { name: '말차 라떼', emoji: '🍵', image: '', color: '#E2F0D6' },
+    { name: '자몽 에이드', emoji: '🍊', image: '', color: '#FFE0D2' }, { name: '초코 프라페', emoji: '🍫', image: '', color: '#EADBD0' },
+    { name: '흑당 버블티', emoji: '🧋', image: '', color: '#F1E2D1' }, { name: '유자차', emoji: '🍋', image: '', color: '#FFF3C4' }
+  ]
+},
+
+/* ================= 타로 =================
+   topics: 고를 수 있는 운세 주제, cards[].lines: 주제별 한 줄 메시지
+   같은 날 + 같은 주제에서는 같은 카드 세트가 나옵니다                    */
+{
+  id: 'today-tarot', type: 'tarot', badge: 'DAILY', date: '2026-09-28',
+  title: '오늘의 타로',
+  desc: '마음을 가라앉히고, 궁금한 주제를 고른 뒤 끌리는 카드 한 장을 뽑아보세요.',
+  thumb: '', emoji: '🔮', color: '#E4DEFF', plays: 210500, likes: 16800,
+  topics: [
+    { key: 'today', name: '오늘의 운세', icon: '🌤️' }, { key: 'love', name: '연애운', icon: '💗' },
+    { key: 'money', name: '금전운', icon: '💰' }, { key: 'study', name: '학업·일운', icon: '📖' }
+  ],
+  cards: [
+    { name: '태양', emoji: '☀️', image: '', luck: '행운의 색: 노랑',
+      lines: { today: '무엇을 해도 밝게 풀리는 날. 미뤄둔 일을 시작해 보세요.', love: '솔직한 마음이 가장 큰 매력이 되는 날이에요.', money: '작은 보너스나 뜻밖의 선물이 들어올 수 있어요.', study: '자신감이 결과로 이어져요. 발표가 있다면 오늘이 기회!' } },
+    { name: '별', emoji: '⭐', image: '', luck: '행운의 장소: 창가 자리',
+      lines: { today: '작은 희망이 현실로 다가옵니다.', love: '오래 기다린 연락이 올지도 몰라요.', money: '지금 아끼는 습관이 나중에 큰 힘이 돼요.', study: '꾸준히 해 온 노력이 빛을 보기 시작해요.' } },
+    { name: '달', emoji: '🌙', image: '', luck: '행운의 음료: 따뜻한 차',
+      lines: { today: '불안은 지나가는 구름. 확실하지 않은 소문엔 귀를 닫으세요.', love: '상대의 속마음을 추측하기보다 직접 물어보세요.', money: '충동구매 주의! 장바구니는 하루 묵혀 두기.', study: '헷갈리는 개념은 오늘 꼭 정리하고 넘어가세요.' } },
+    { name: '연인', emoji: '💞', image: '', luck: '행운의 숫자: 2',
+      lines: { today: '좋은 인연의 기운이 가득한 날.', love: '설레는 만남이나 관계의 진전이 기대돼요.', money: '누군가와 함께하는 지출이 좋은 추억이 돼요.', study: '함께 공부하면 효율이 두 배가 되는 날.' } },
+    { name: '마법사', emoji: '🪄', image: '', luck: '행운의 물건: 펜',
+      lines: { today: '당신의 재능을 보여줄 기회가 옵니다.', love: '먼저 다가가면 분위기를 이끌 수 있어요.', money: '새로운 아이디어가 수입으로 이어질 수 있어요.', study: '과제나 프로젝트에서 번뜩이는 해결책이 떠올라요.' } },
+    { name: '운명의 수레바퀴', emoji: '🎡', image: '', luck: '행운의 시간: 오후 3시',
+      lines: { today: '흐름이 바뀌는 날. 예상 못 한 제안이 기회가 돼요.', love: '우연한 만남에 주목하세요.', money: '들어오고 나가는 돈의 흐름이 바뀌어요. 가계부 점검!', study: '방향을 바꿔 보면 답이 보여요.' } },
+    { name: '힘', emoji: '🦁', image: '', luck: '행운의 색: 초록',
+      lines: { today: '조급해하지 않아도 괜찮아요. 꾸준함이 이깁니다.', love: '부드러운 말 한마디가 갈등을 풀어요.', money: '큰 결정은 조금 더 지켜본 뒤에.', study: '버티는 힘이 최고의 무기가 되는 날.' } },
+    { name: '세계', emoji: '🌍', image: '', luck: '행운의 장소: 공원',
+      lines: { today: '하나의 일이 깔끔하게 마무리돼요. 스스로를 칭찬해 주세요.', love: '관계가 한 단계 성숙해지는 시기예요.', money: '목표했던 저축에 가까워지고 있어요.', study: '마무리를 잘하면 좋은 평가가 따라와요.' } },
+    { name: '은둔자', emoji: '🕯️', image: '', luck: '행운의 활동: 산책',
+      lines: { today: '혼자만의 시간이 답을 알려줘요.', love: '서두르지 말고 내 마음부터 들여다보세요.', money: '지출 목록을 조용히 정리하기 좋은 날.', study: '조용한 곳에서 집중하면 효율이 올라가요.' } },
+    { name: '전차', emoji: '🏇', image: '', luck: '행운의 숫자: 7',
+      lines: { today: '앞만 보고 달려도 좋은 날!', love: '망설이던 고백, 지금이 타이밍일지도.', money: '목표를 정하고 움직이면 성과가 따라와요.', study: '미뤄둔 과제를 한 번에 끝낼 추진력이 생겨요.' } }
+  ]
+}
+];
+
+
+/* 3D 일러스트: Microsoft Fluent Emoji (MIT 라이선스)
+   emoji 칸의 이모지를 자동으로 3D 그림으로 바꿔 보여줍니다.
+   목록에 없는 이모지는 그냥 이모지로 표시됩니다. */
+const ART = {
+  base: 'https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/',
+  backup: 'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/',
+  map: {"🧳": "assets/Luggage/3D/luggage_3d.png", "🥢": "assets/Chopsticks/3D/chopsticks_3d.png", "🌐": "assets/Globe with meridians/3D/globe_with_meridians_3d.png", "🧭": "assets/Compass/3D/compass_3d.png", "🥓": "assets/Bacon/3D/bacon_3d.png", "🥣": "assets/Bowl with spoon/3D/bowl_with_spoon_3d.png", "🍙": "assets/Rice ball/3D/rice_ball_3d.png", "🌱": "assets/Seedling/3D/seedling_3d.png", "💬": "assets/Speech balloon/3D/speech_balloon_3d.png", "📺": "assets/Television/3D/television_3d.png", "🗣️": "assets/Speaking head/3D/speaking_head_3d.png", "📊": "assets/Bar chart/3D/bar_chart_3d.png", "🗺️": "assets/World map/3D/world_map_3d.png", "🔬": "assets/Microscope/3D/microscope_3d.png", "🎓": "assets/Graduation cap/3D/graduation_cap_3d.png", "💎": "assets/Gem stone/3D/gem_stone_3d.png", "🏫": "assets/School/3D/school_3d.png",  "☀️": "assets/Sun/3D/sun_3d.png", "☕": "assets/Hot beverage/3D/hot_beverage_3d.png", "♟️": "assets/Chess pawn/3D/chess_pawn_3d.png", "⚖️": "assets/Balance scale/3D/balance_scale_3d.png", "⚡": "assets/High voltage/3D/high_voltage_3d.png", "⛵": "assets/Sailboat/3D/sailboat_3d.png", "✈️": "assets/Airplane/3D/airplane_3d.png", "✏️": "assets/Pencil/3D/pencil_3d.png", "⭐": "assets/Star/3D/star_3d.png", "🌃": "assets/Night with stars/3D/night_with_stars_3d.png", "🌊": "assets/Water wave/3D/water_wave_3d.png", "🌙": "assets/Crescent moon/3D/crescent_moon_3d.png", "🌟": "assets/Glowing star/3D/glowing_star_3d.png", "🌴": "assets/Palm tree/3D/palm_tree_3d.png", "🌶️": "assets/Hot pepper/3D/hot_pepper_3d.png", "🍊": "assets/Tangerine/3D/tangerine_3d.png", "🍋": "assets/Lemon/3D/lemon_3d.png", "🍓": "assets/Strawberry/3D/strawberry_3d.png", "🍔": "assets/Hamburger/3D/hamburger_3d.png", "🍕": "assets/Pizza/3D/pizza_3d.png", "🍗": "assets/Poultry leg/3D/poultry_leg_3d.png", "🍜": "assets/Steaming bowl/3D/steaming_bowl_3d.png", "🍫": "assets/Chocolate bar/3D/chocolate_bar_3d.png", "🍲": "assets/Pot of food/3D/pot_of_food_3d.png", "🍵": "assets/Teacup without handle/3D/teacup_without_handle_3d.png", "🎉": "assets/Party popper/3D/party_popper_3d.png", "🎡": "assets/Ferris wheel/3D/ferris_wheel_3d.png", "🎤": "assets/Microphone/3D/microphone_3d.png", "🎨": "assets/Artist palette/3D/artist_palette_3d.png", "🏄": "assets/Person surfing/Default/3D/person_surfing_3d_default.png", "🏇": "assets/Horse racing/Default/3D/horse_racing_3d_default.png", "🏖️": "assets/Beach with umbrella/3D/beach_with_umbrella_3d.png", "🏯": "assets/Japanese castle/3D/japanese_castle_3d.png", "🐙": "assets/Octopus/3D/octopus_3d.png", "🐱": "assets/Cat face/3D/cat_face_3d.png", "🐶": "assets/Dog face/3D/dog_face_3d.png", "🐷": "assets/Pig face/3D/pig_face_3d.png", "🐻": "assets/Bear/3D/bear_3d.png", "🐾": "assets/Paw prints/3D/paw_prints_3d.png", "👑": "assets/Crown/3D/crown_3d.png", "💘": "assets/Heart with arrow/3D/heart_with_arrow_3d.png", "💞": "assets/Revolving hearts/3D/revolving_hearts_3d.png", "💡": "assets/Light bulb/3D/light_bulb_3d.png", "📋": "assets/Clipboard/3D/clipboard_3d.png", "📚": "assets/Books/3D/books_3d.png", "📣": "assets/Megaphone/3D/megaphone_3d.png", "🔥": "assets/Fire/3D/fire_3d.png", "🔧": "assets/Wrench/3D/wrench_3d.png", "🔭": "assets/Telescope/3D/telescope_3d.png", "🔮": "assets/Crystal ball/3D/crystal_ball_3d.png", "🕯️": "assets/Candle/3D/candle_3d.png", "🗓️": "assets/Spiral calendar/3D/spiral_calendar_3d.png", "🗼": "assets/Tokyo tower/3D/tokyo_tower_3d.png", "🗽": "assets/Statue of liberty/3D/statue_of_liberty_3d.png", "😼": "assets/Cat with wry smile/3D/cat_with_wry_smile_3d.png", "🙋": "assets/Person raising hand/Default/3D/person_raising_hand_3d_default.png", "🚜": "assets/Tractor/3D/tractor_3d.png", "🛋️": "assets/Couch and lamp/3D/couch_and_lamp_3d.png", "🛕": "assets/Hindu temple/3D/hindu_temple_3d.png", "🛡️": "assets/Shield/3D/shield_3d.png", "🥐": "assets/Croissant/3D/croissant_3d.png", "🥘": "assets/Shallow pan of food/3D/shallow_pan_of_food_3d.png", "🥛": "assets/Glass of milk/3D/glass_of_milk_3d.png", "🥤": "assets/Cup with straw/3D/cup_with_straw_3d.png", "🦁": "assets/Lion/3D/lion_3d.png", "🦑": "assets/Squid/3D/squid_3d.png", "🦦": "assets/Otter/3D/otter_3d.png", "🧊": "assets/Ice/3D/ice_3d.png", "🧋": "assets/Bubble tea/3D/bubble_tea_3d.png", "🧩": "assets/Puzzle piece/3D/puzzle_piece_3d.png", "🧪": "assets/Test tube/3D/test_tube_3d.png", "🪄": "assets/Magic wand/3D/magic_wand_3d.png", "🪑": "assets/Chair/3D/chair_3d.png", "🎈": "assets/Balloon/3D/balloon_3d.png", "✨": "assets/Sparkles/3D/sparkles_3d.png", "🏆": "assets/Trophy/3D/trophy_3d.png", "💕": "assets/Two hearts/3D/two_hearts_3d.png", "💗": "assets/Growing heart/3D/growing_heart_3d.png", "💰": "assets/Money bag/3D/money_bag_3d.png", "📖": "assets/Open book/3D/open_book_3d.png", "🌤️": "assets/Sun behind small cloud/3D/sun_behind_small_cloud_3d.png", "🧠": "assets/Brain/3D/brain_3d.png", "🍀": "assets/Four leaf clover/3D/four_leaf_clover_3d.png", "🌍": "assets/Globe showing europe-africa/3D/globe_showing_europe-africa_3d.png", "🤝": "assets/Handshake/3D/handshake_3d.png" }
+};
+const ICONS = {"house": "<path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\" /> <path d=\"M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" />", "brain": "<path d=\"M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z\" /> <path d=\"M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z\" /> <path d=\"M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4\" /> <path d=\"M17.599 6.5a3 3 0 0 0 .399-1.375\" /> <path d=\"M6.003 5.125A3 3 0 0 0 6.401 6.5\" /> <path d=\"M3.477 10.896a4 4 0 0 1 .585-.396\" /> <path d=\"M19.938 10.5a4 4 0 0 1 .585.396\" /> <path d=\"M6 18a4 4 0 0 1-1.967-.516\" /> <path d=\"M19.967 17.484A4 4 0 0 1 18 18\" />", "circle-help": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\" /> <path d=\"M12 17h.01\" />", "scale": "<path d=\"m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z\" /> <path d=\"m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z\" /> <path d=\"M7 21h10\" /> <path d=\"M12 3v18\" /> <path d=\"M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2\" />", "trophy": "<path d=\"M6 9H4.5a2.5 2.5 0 0 1 0-5H6\" /> <path d=\"M18 9h1.5a2.5 2.5 0 0 0 0-5H18\" /> <path d=\"M4 22h16\" /> <path d=\"M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22\" /> <path d=\"M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22\" /> <path d=\"M18 2H6v7a6 6 0 0 0 12 0V2Z\" />", "sparkles": "<path d=\"M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z\" /> <path d=\"M20 3v4\" /> <path d=\"M22 5h-4\" /> <path d=\"M4 17v2\" /> <path d=\"M5 18H3\" />", "sparkle": "<path d=\"M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z\" />", "user": "<path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\" /> <circle cx=\"12\" cy=\"7\" r=\"4\" />", "search": "<circle cx=\"11\" cy=\"11\" r=\"8\" /> <path d=\"m21 21-4.3-4.3\" />", "moon": "<path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\" />", "sun": "<circle cx=\"12\" cy=\"12\" r=\"4\" /> <path d=\"M12 2v2\" /> <path d=\"M12 20v2\" /> <path d=\"m4.93 4.93 1.41 1.41\" /> <path d=\"m17.66 17.66 1.41 1.41\" /> <path d=\"M2 12h2\" /> <path d=\"M20 12h2\" /> <path d=\"m6.34 17.66-1.41 1.41\" /> <path d=\"m19.07 4.93-1.41 1.41\" />", "volume-2": "<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\" /> <path d=\"M16 9a5 5 0 0 1 0 6\" /> <path d=\"M19.364 18.364a9 9 0 0 0 0-12.728\" />", "volume-x": "<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\" /> <line x1=\"22\" x2=\"16\" y1=\"9\" y2=\"15\" /> <line x1=\"16\" x2=\"22\" y1=\"9\" y2=\"15\" />", "arrow-left": "<path d=\"m12 19-7-7 7-7\" /> <path d=\"M19 12H5\" />", "share-2": "<circle cx=\"18\" cy=\"5\" r=\"3\" /> <circle cx=\"6\" cy=\"12\" r=\"3\" /> <circle cx=\"18\" cy=\"19\" r=\"3\" /> <line x1=\"8.59\" x2=\"15.42\" y1=\"13.51\" y2=\"17.49\" /> <line x1=\"15.41\" x2=\"8.59\" y1=\"6.51\" y2=\"10.49\" />", "heart": "<path d=\"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z\" />", "camera": "<path d=\"M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z\" /> <circle cx=\"12\" cy=\"13\" r=\"3\" />", "rotate-ccw": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\" /> <path d=\"M3 3v5h5\" />", "flame": "<path d=\"M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z\" />", "clock": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <polyline points=\"12 6 12 12 16 14\" />", "users": "<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /> <path d=\"M16 3.13a4 4 0 0 1 0 7.75\" />", "chart-column": "<path d=\"M3 3v16a2 2 0 0 0 2 2h16\" /> <path d=\"M18 17V9\" /> <path d=\"M13 17V5\" /> <path d=\"M8 17v-3\" />", "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\" /> <path d=\"M3 3v5h5\" /> <path d=\"M12 7v5l4 2\" />", "trash-2": "<path d=\"M3 6h18\" /> <path d=\"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6\" /> <path d=\"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2\" /> <line x1=\"10\" x2=\"10\" y1=\"11\" y2=\"17\" /> <line x1=\"14\" x2=\"14\" y1=\"11\" y2=\"17\" />", "check": "<path d=\"M20 6 9 17l-5-5\" />", "x": "<path d=\"M18 6 6 18\" /> <path d=\"m6 6 12 12\" />", "heart-handshake": "<path d=\"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z\" /> <path d=\"M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66\" /> <path d=\"m18 15-2-2\" /> <path d=\"m15 18-2-2\" />", "list-ordered": "<path d=\"M10 12h11\" /> <path d=\"M10 18h11\" /> <path d=\"M10 6h11\" /> <path d=\"M4 10h2\" /> <path d=\"M4 6h1v4\" /> <path d=\"M6 18H4c0-1 2-2 2-3s-1-1.5-2-1\" />", "layers-2": "<path d=\"m16.02 12 5.48 3.13a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74L7.98 12\" /> <path d=\"M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74Z\" />", "keyboard": "<path d=\"M10 8h.01\" /> <path d=\"M12 12h.01\" /> <path d=\"M14 8h.01\" /> <path d=\"M16 12h.01\" /> <path d=\"M18 8h.01\" /> <path d=\"M6 8h.01\" /> <path d=\"M7 16h10\" /> <path d=\"M8 12h.01\" /> <rect width=\"20\" height=\"16\" x=\"2\" y=\"4\" rx=\"2\" />", "x-logo": "<path d=\"M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3Zm-1.08 16.2h1.7L7.4 4.73H5.58L16.67 19.2Z\" fill=\"currentColor\" stroke=\"none\"/>"};
+
+/* =====================================================================
+   아래부터는 작동 코드입니다. (보통은 고치지 않아도 됩니다)
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, '') + '만' : Number(n).toLocaleString('ko-KR');
+const typeName = t => (CATEGORIES.find(c => c.key === t) || {}).name || '';
+const byId = id => CONTENTS.find(c => c.id === id);
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem('dd_' + k)) ?? d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('dd_' + k, JSON.stringify(v)); } catch (e) {} }
+};
+let keyHandler = null;   // 키보드 단축키 (컴퓨터)
+let bannerTimer = null;
+
+/* ---------- 다크 모드 ---------- */
+const applyTheme = t => { document.documentElement.dataset.theme = t; };
+applyTheme(store.get('theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+function toggleTheme() { const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; applyTheme(t); store.set('theme', t); renderTop(); }
+
+/* ---------- 좋아요 · 기록 ---------- */
+const likes = () => store.get('likes', []);
+const isLiked = id => likes().includes(id);
+function toggleLike(id) {
+  const l = likes(); const i = l.indexOf(id);
+  i >= 0 ? l.splice(i, 1) : l.push(id); store.set('likes', l);
+  toast(i >= 0 ? '좋아요를 취소했어요' : '좋아요한 콘텐츠에 저장했어요');
+}
+const likeCount = c => (c.likes || 0) + (isLiked(c.id) ? 1 : 0);
+function addHistory(c, title, emoji, link) {
+  const h = store.get('hist', []).filter(x => !(x.id === c.id && x.title === title));
+  h.unshift({ id: c.id, title, emoji: emoji || c.emoji, color: c.color, link, date: new Date().toLocaleDateString('ko-KR') });
+  store.set('hist', h.slice(0, 50));
+}
+
+/* ---------- 공통 그리기 ---------- */
+function ic(name, cls = '') { return `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name] || ''}</svg>`; }
+const artURL = (e, b) => ART.map[e] ? (b || ART.base) + encodeURI(ART.map[e]) : '';
+function art(e, cls = '') {
+  return ART.map[e] ? `<img class="art3d ${cls}" src="${artURL(e)}" alt="" loading="lazy" draggable="false" data-emoji="${esc(e)}" onerror="imgFail(this)">` : `<span class="emo ${cls}">${esc(e || '')}</span>`;
+}
+function imgFail(el) {
+  const e = el.dataset.emoji;
+  if (el.classList.contains('art3d') && !el.dataset.tried && ART.map[e]) { el.dataset.tried = 1; el.src = artURL(e, ART.backup); return; }
+  const s = document.createElement('span'); s.className = 'emo'; s.textContent = e || '✨'; el.replaceWith(s);
+}
+function visual(image, emoji, color, cls = 'thumb', extra = '') {
+  const inner = image ? `<img src="${esc(image)}" alt="" loading="lazy" data-emoji="${esc(emoji)}" onerror="imgFail(this)">` : art(emoji || '✨');
+  return `<div class="${cls}" style="background:${esc(color || '#EEE')}">${inner}${extra}</div>`;
+}
+function cardHTML(c, rank) {
+  const b = c.badge ? `<span class="badge ${c.badge === 'NEW' ? 'new' : c.badge === 'HOT' ? 'hot' : ''}">${esc(c.badge)}</span>` : '';
+  return `<a class="card content-card" href="#/play/${c.id}" data-id="${c.id}">
+    ${visual(c.thumb, c.emoji, c.color, 'thumb', b + (rank ? `<span class="rank">${rank}</span>` : ''))}
+    <div class="meta"><div class="t">${esc(c.title)}</div>
+    <div class="p"><span>${typeName(c.type)}</span><span class="${isLiked(c.id) ? 'liked' : ''}">${ic('heart', isLiked(c.id) ? 'fill' : '')} ${fmt(likeCount(c))}</span></div></div></a>`;
+}
+function sideRec(c) {
+  const list = CONTENTS.filter(x => x.id !== (c && c.id)).sort((a, b) => b.plays - a.plays).slice(0, 5);
+  return `<aside class="side-rec"><h4>${ic('flame')} 인기 콘텐츠</h4><div class="hist">${list.map(x =>
+    `<a href="#/play/${x.id}"><span class="mini" style="background:${x.color}">${art(x.emoji)}</span><span><b>${esc(x.title)}</b><small>${typeName(x.type)} · ${fmt(x.plays)}명 참여</small></span></a>`).join('')}</div></aside>`;
+}
+function layout(c, inner) { $('#view').innerHTML = `<div class="playwrap"><section class="play pop">${inner}</section>${sideRec(c)}</div>`; window.scrollTo(0, 0); enhance(); }
+function shareRow(c, text) {
+  return `<div class="btn-row three">
+    <button class="btn btn-line share-btn" data-text="${esc(text || '')}">${ic('share-2')} 공유</button>
+    <button class="btn btn-line share-x" data-text="${esc(text || '')}">${ic('x-logo')} 게시</button>
+    <button class="btn btn-line like-btn ${isLiked(c.id) ? 'liked' : ''}" data-id="${c.id}">${ic('heart')} 좋아요</button></div>`;
+}
+
+/* ---------- 헤더 · 탭 ---------- */
+let current = 'all';
+function renderTop() {
+  const brand = SITE.logo ? `<img src="${esc(SITE.logo)}" alt="${esc(SITE.name)}">` : `<span class="logo-m">${mascot('happy')}</span>${esc(SITE.name)}`;
+  const home = location.hash === '' || location.hash === '#/';
+  $('#topbar').innerHTML = `${home ? '' : `<button class="icon-btn" onclick="history.length>1?history.back():location.hash='#/'" aria-label="뒤로">${ic('arrow-left')}</button>`}
+    <a class="brand" href="#/">${brand}</a>
+    <nav class="dnav">${CATEGORIES.map(c => `<a href="${c.key === 'all' ? '#/' : '#/c/' + c.key}" class="${current === c.key ? 'on' : ''}">${c.name}</a>`).join('')}</nav>
+    <div class="top-right">
+      <button class="icon-btn ${soundOn() ? 'sound-on' : ''}" onclick="toggleSound()" aria-label="효과음 켜기/끄기">${ic(soundOn() ? 'volume-2' : 'volume-x')}</button>
+      <button class="icon-btn" onclick="toggleTheme()" aria-label="화면 모드 바꾸기">${ic(document.documentElement.dataset.theme === 'dark' ? 'sun' : 'moon')}</button>
+      <a class="my-link" href="#/me">MY 기록</a></div>`;
+  $('#tabbar').innerHTML = TABS.map(t => `<a href="${t.href}" class="${current === t.key ? 'on' : ''}"><b>${ic(t.icon)}</b>${t.name}</a>`).join('');
+}
+$('#footer').textContent = SITE.footer;
+
+/* ---------- 홈 ---------- */
+function renderHome(cat = 'all') {
+  current = cat; renderTop();
+  const list = cat === 'all' ? CONTENTS : CONTENTS.filter(c => c.type === cat);
+  const hot = [...list].sort((a, b) => b.plays - a.plays).slice(0, 6);
+  const fresh = [...list].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+  const catInfo = CATEGORIES.find(c => c.key === cat);
+  $('#view').innerHTML = `
+    <section class="home-hero"><div><div class="hello">${mascot('happy')}<span class="bubble" id="bubble">${esc(SITE.greetings[0])}</span></div>
+      <h1>${cat === 'all' ? esc(SITE.homeTitle).replace(/\n/g, '<br>') : esc(catInfo.name)}</h1></div>
+      <label class="search"><span>${ic('search')}</span><input id="q" type="search" placeholder="테스트, 퀴즈, 게임 검색" autocomplete="off"></label></section>
+    <nav class="chips">${CATEGORIES.map(c => `<a class="chip ${c.key === cat ? 'on' : ''}" href="${c.key === 'all' ? '#/' : '#/c/' + c.key}">${ic(c.icon)} ${c.name}</a>`).join('')}</nav>
+    ${cat === 'all' ? `<section class="banner" id="bannerSec"><div class="slides" id="slides">${SITE.banners.map(b =>
+      `<a class="slide" href="${esc(b.link)}" style="background-color:${esc(b.color)};${b.image ? `background-image:url('${esc(b.image)}')` : ''}">
+       ${b.art && !b.image ? `<div class="art">${b.art.map(x => art(x)).join('')}</div>` : ''}<div class="txt">${b.tag ? `<span class="tag">${esc(b.tag)}</span>` : ''}<h2>${esc(b.title).replace(/\n/g, '<br>')}</h2><p>${esc(b.sub)}</p></div></a>`).join('')}</div>
+       <div class="dots" id="dots">${SITE.banners.map((_, i) => `<i class="${i ? '' : 'on'}"></i>`).join('')}</div></section>
+       <div class="ticker"><span class="live">LIVE</span><span id="tick"></span></div>` : ''}
+    <section class="sec" id="hotSec"><div class="sec-head"><h3>${ic('flame')} 지금 가장 많이 하는</h3></div><div class="hlist">${hot.map((c, i) => cardHTML(c, i + 1)).join('')}</div></section>
+    ${cat === 'all' || cat === 'test' ? `<section class="sec" id="stuSec"><div class="sec-head"><h3>${ic('sparkles')} 유학생 · 대학원생 특집</h3></div><div class="grid">${CONTENTS.filter(c => c.special === 'student').map(c => cardHTML(c)).join('')}</div></section>` : ''}
+    <section class="sec" id="newSec"><div class="sec-head"><h3>${ic('sparkle')} 새로 나왔어요</h3></div><div class="grid">${fresh.map(c => cardHTML(c)).join('')}</div></section>
+    <section class="sec"><div class="sec-head"><h3 id="allTitle">${ic('layers-2')} 전체 콘텐츠</h3>
+      <select id="sort" aria-label="정렬"><option value="plays">참여 많은 순</option><option value="date">최신순</option><option value="likes">좋아요 순</option></select></div>
+      <div class="grid" id="allGrid"></div></section>`;
+  const draw = () => {
+    const k = $('#q').value.trim().toLowerCase(); const s = $('#sort').value;
+    const found = list.filter(c => (c.title + c.desc + typeName(c.type)).toLowerCase().includes(k))
+      .sort((a, b) => s === 'date' ? b.date.localeCompare(a.date) : s === 'likes' ? likeCount(b) - likeCount(a) : b.plays - a.plays);
+    ['#hotSec', '#stuSec', '#newSec', '#bannerSec'].forEach(id => { const el = $(id); if (el) el.style.display = k ? 'none' : ''; });
+    $('#allTitle').innerHTML = k ? `${ic('search')} "${esc($('#q').value)}" 검색 결과 ${found.length}개` : `${ic('layers-2')} 전체 콘텐츠`;
+    $('#allGrid').innerHTML = found.length ? found.map(c => cardHTML(c)).join('') : `<div class="empty">검색 결과가 없어요. 다른 단어로 찾아보세요.</div>`;
+  };
+  $('#q').addEventListener('input', draw); $('#sort').addEventListener('change', draw); draw();
+  startHomeFx(); enhance();
+  const slides = $('#slides');
+  if (slides) {
+    const dots = $$('#dots i');
+    slides.addEventListener('scroll', () => requestAnimationFrame(() => { const i = Math.round(slides.scrollLeft / slides.clientWidth); dots.forEach((d, k) => d.classList.toggle('on', k === i)); }));
+    bannerTimer = setInterval(() => {
+      if (innerWidth >= 1024) return;   // 컴퓨터에서는 배너를 한 번에 보여줌
+      const i = Math.round(slides.scrollLeft / slides.clientWidth);
+      slides.scrollTo({ left: ((i + 1) % SITE.banners.length) * slides.clientWidth, behavior: 'smooth' });
+    }, 4000);
+  }
+}
+
+/* ---------- 시작 화면 ---------- */
+function renderIntro(c) {
+  current = c.type; renderTop();
+  const count = { test: () => `${c.questions.length}문항`, quiz: () => `${c.questions.length}문제`, balance: () => `${c.items.length}문제`, worldcup: () => `${c.candidates.length}강`, tarot: () => `카드 ${c.cards.length}장` }[c.type]();
+  const last = store.get('hist', []).find(h => h.id === c.id);
+  layout(c, `${visual(c.thumb, c.emoji, c.color, 'hero-thumb')}
+    <span class="kind">${typeName(c.type)}</span>
+    <h1>${esc(c.title)}</h1><p class="lead">${esc(c.desc)}</p>
+    <div class="stat"><span>${ic('users')} <b data-count="${c.plays}">0</b>명 참여</span><span>${ic('clock')} ${count}</span><span>${ic('heart')} ${fmt(likeCount(c))}</span></div>
+    ${last ? `<div class="notice"><span>지난번 결과: <b>${esc(last.title)}</b></span>${last.link ? `<a href="${last.link}">다시 보기</a>` : ''}</div>` : ''}
+    <button class="btn btn-main start-btn" id="start">${c.type === 'tarot' ? '카드 뽑으러 가기' : '시작하기'}</button>
+    ${shareRow(c)}
+    <p class="kbd">${ic('keyboard')} 키보드 Enter로 시작할 수 있어요</p>`);
+  const go = () => ({ test: playTest, quiz: playQuiz, balance: playBalance, worldcup: playCup, tarot: playTarot })[c.type](c);
+  $('#start').onclick = go; keyHandler = e => { if (e.key === 'Enter') go(); };
+}
+
+/* ---------- 심리테스트 ---------- */
+function playTest(c) {
+  const picks = []; let i = 0;
+  const step = () => {
+    const Q = c.questions[i], n = c.questions.length;
+    layout(c, `<div class="prog">${i ? `<button id="prev">← 이전</button>` : ''}<div class="bar"><i style="width:${(i / n) * 100}%"></i></div><span>${i + 1} / ${n}</span></div>
+      ${Q.image ? `<div class="qimg"><img src="${esc(Q.image)}" alt="" onerror="this.parentNode.remove()"></div>` : ''}
+      <div class="q-head">${mascot(i % 3 === 2 ? 'wow' : 'think')}<div class="qno">Q${i + 1}</div></div><h2 class="qtitle">${esc(Q.q)}</h2>
+      <div class="opts">${Q.options.map((o, k) => `<button class="opt" data-k="${k}" style="--d:${k}"><span class="n">${k + 1}</span>${esc(o.text)}</button>`).join('')}</div>
+      <p class="kbd">${ic('keyboard')} 숫자 키 1~${Q.options.length}로 고를 수 있어요</p>`);
+    requestAnimationFrame(() => { const b = $('.prog .bar i'); if (b) b.style.width = ((i + 1) / n) * 100 + '%'; });
+    const pick = k => {
+      const b = $$('.opt')[k]; if (!b || b.dataset.done) return; $$('.opt').forEach(x => x.dataset.done = 1);
+      b.classList.add('picked'); picks[i] = k;
+      setTimeout(() => { i++; i < n ? step() : finish(); }, 230);
+    };
+    $$('.opt').forEach(b => b.onclick = () => pick(+b.dataset.k));
+    if ($('#prev')) $('#prev').onclick = () => { i--; step(); };
+    keyHandler = e => { const k = +e.key - 1; if (k >= 0 && k < Q.options.length) pick(k); };
+  };
+  const finish = () => {
+    const score = {};
+    picks.forEach((k, qi) => Object.entries(c.questions[qi].options[k].score || {}).forEach(([key, v]) => score[key] = (score[key] || 0) + v));
+    let key;
+    if (c.axes) key = c.axes.map(ax => (score[ax[1]] || 0) > (score[ax[0]] || 0) ? ax[1] : ax[0]).join('');
+    else { const keys = Object.keys(c.results); key = keys.reduce((a, k) => (score[k] || 0) > (score[a] || 0) ? k : a, keys[0]); }
+    const R = c.results[key];
+    addHistory(c, R.title, R.emoji, `#/result/${c.id}/${key}`);
+    sessionStorage.setItem('justPlayed', c.id);
+    analyzing(c, () => { location.hash = `#/result/${c.id}/${key}`; });
+  };
+  step();
+}
+function renderTestResult(c, key) {
+  const R = c.results[key]; if (!R) return renderIntro(c);
+  current = c.type; renderTop();
+  const mine = sessionStorage.getItem('justPlayed') === c.id;
+  const keys = Object.keys(c.results);
+  const rs = keys.map(k => ({ k, r: c.results[k], p: c.results[k].ratio || Math.round(100 / keys.length) })).sort((a, b) => b.p - a.p);
+  const top = rs.slice(0, 5); if (!top.find(x => x.k === key)) top.push(rs.find(x => x.k === key));
+  const matchCard = (label, k) => { const r = c.results[k]; return r ? `<a href="#/result/${c.id}/${k}"><small>${label}</small>${art(r.emoji)}<b>${esc(r.title)}</b></a>` : ''; };
+  const others = CONTENTS.filter(x => x.id !== c.id).sort(() => Math.random() - .5).slice(0, 4);
+  layout(c, `<div class="result">
+    ${mine ? '' : `<div class="notice"><span>친구가 공유한 결과예요. 나는 어떤 유형일까?</span><a href="#/play/${c.id}" class="try-btn" data-id="${c.id}" data-key="${esc(key)}">나도 해보기</a></div>`}
+    <div class="reveal-box">${visual(R.image, R.emoji, R.color, 'hero-thumb')}<span class="sparkle">✦</span><span class="sparkle">✦</span><span class="sparkle">✦</span><span class="sparkle">✦</span></div>
+    <p class="label">${esc(c.title)} 결과</p><h1>${esc(R.title)}</h1>
+    ${R.tags ? `<div class="tags">${R.tags.map((t, k) => `<span style="--d:${k}">${esc(t)}</span>`).join('')}</div>` : ''}
+    <div class="desc">${esc(R.desc).replace(/\[(.+?)\]/g, '<b class="dh">$1</b>')}</div>
+    ${mine ? chemistry(c, key) : ''}
+    ${R.best || R.worst ? `<div class="match">${matchCard('잘 맞는 유형', R.best)}${matchCard('안 맞는 유형', R.worst)}</div>` : ''}
+    <div class="ratio"><b style="font-size:14px">${ic('chart-column')} 참여자 결과 분포</b>${top.map(x => `<div class="row ${x.k === key ? 'me' : ''}"><span>${art(x.r.emoji, 'art-xs')} ${esc(x.r.title)}</span><span class="b"><i style="width:${x.p}%"></i></span><span>${x.p}%</span></div>`).join('')}</div>
+    ${R.cta && R.cta.link ? `<a class="btn btn-main result-cta" href="${esc(R.cta.link)}" target="_blank" rel="noopener">${esc(R.cta.text)}</a><div style="height:12px"></div>` : ''}
+    ${mine ? `<a class="btn btn-main" href="#/play/${c.id}">${ic('rotate-ccw')} 다시 하기</a>` : `<a class="btn btn-main" href="#/play/${c.id}">${ic('sparkles')} 나도 테스트 하기</a>`}
+    ${saveBtn(c.title, R.title, R.emoji, R.color, R.tags)}
+    ${shareRow(c, `나는 "${R.title}"! 너는 어떤 유형이야?`)}
+    <div class="more-title">다른 결과 구경하기</div>
+    <div class="others">${keys.map(k => `<a class="${k === key ? 'me' : ''}" href="#/result/${c.id}/${k}">${art(c.results[k].emoji, 'art-xs')} ${esc(c.results[k].title)}</a>`).join('')}</div>
+    <div class="more-title">이런 것도 해보세요</div><div class="grid">${others.map(x => cardHTML(x)).join('')}</div></div>`);
+  keyHandler = null;
+  if (mine && sessionStorage.getItem('celebrated') !== location.hash) { sessionStorage.setItem('celebrated', location.hash); confetti(); sfx('win'); }
+  const ring = $('.ringc'); if (ring) animateNumber(ring, +ring.dataset.p, v => { ring.style.setProperty('--p', v); ring.querySelector('b').textContent = v + '%'; });
+}
+
+/* ---------- 퀴즈 ---------- */
+function playQuiz(c) {
+  let i = 0, right = 0; const wrongs = [];
+  const step = () => {
+    const Q = c.questions[i], n = c.questions.length;
+    layout(c, `<div class="prog"><div class="bar"><i style="width:${((i + 1) / n) * 100}%"></i></div><span>${i + 1} / ${n}</span></div>
+      <div class="qno">문제 ${i + 1} · 현재 ${right}점</div><h2 class="qtitle">${esc(Q.q)}</h2>
+      <div class="opts">${Q.options.map((o, k) => `<button class="opt" data-k="${k}" style="--d:${k}"><span class="n">${k + 1}</span>${esc(o)}</button>`).join('')}</div>
+      <div id="exp"></div><p class="kbd">${ic('keyboard')} 숫자 키로 답하고, Enter로 다음 문제</p>`);
+    const answer = k => {
+      if ($('.opts').dataset.done) return; $('.opts').dataset.done = 1;
+      const ok = k === Q.answer; if (ok) right++; else wrongs.push(Q); sfx(ok ? 'win' : 'bad');
+      $$('.opt').forEach((b, x) => { if (x === Q.answer) b.classList.add('right'); else if (x === k) b.classList.add('wrong'); });
+      $('#exp').innerHTML = `<div class="explain pop"><b class="${ok ? 'ok-t' : 'bad-t'}">${ok ? ic('check') + ' 정답!' : ic('x') + ' 아쉬워요'}</b>${esc(Q.explain || '')}</div>
+        <div style="height:14px"></div><button class="btn btn-main" id="next">${i + 1 < n ? '다음 문제' : '결과 보기'}</button>`;
+      $('#next').onclick = next; keyHandler = e => { if (e.key === 'Enter') next(); };
+    };
+    const next = () => { i++; i < n ? step() : done(); };
+    $$('.opt').forEach(b => b.onclick = () => answer(+b.dataset.k));
+    keyHandler = e => { const k = +e.key - 1; if (k >= 0 && k < Q.options.length) answer(k); };
+  };
+  const done = () => analyzing(c, showScore, '채점하는 중…');
+  const showScore = () => {
+    const n = c.questions.length;
+    const g = [...c.grades].reverse().find(x => right >= x.min) || c.grades[0];
+    addHistory(c, `${right}/${n}점 · ${g.title}`, c.emoji, '');
+    layout(c, `<div class="result">
+      <div class="score"><span data-count="${right}" data-plain="1">0</span><small> / ${n}</small></div>
+      <p class="label">${esc(c.title)}</p><h1>${esc(g.title)}</h1><div class="desc">${esc(g.desc)}</div>
+      ${wrongs.length ? `<div class="more-title" style="margin-top:6px">${ic('list-ordered')} 틀린 문제 다시 보기</div><div class="review">${wrongs.map(q =>
+        `<div>${esc(q.q.replace(/\n/g, ' '))}<br>정답: <b>${esc(q.options[q.answer])}</b><br><small style="color:var(--soft)">${esc(q.explain || '')}</small></div>`).join('')}</div>` : ''}
+      <a class="btn btn-main" href="#/play/${c.id}">${ic('rotate-ccw')} 다시 도전</a>
+      ${saveBtn(c.title, g.title, c.emoji, c.color, [`${right} / ${n}점`])}
+      ${shareRow(c, `${c.title} ${right}/${n}점! 너는 몇 점?`)}</div>`);
+    sfx(right >= n / 2 ? 'win' : 'tap'); if (right >= Math.ceil(n * .8)) confetti();
+    keyHandler = null;
+  };
+  step();
+}
+
+/* ---------- 밸런스 게임 ---------- */
+function playBalance(c) {
+  let i = 0; const picks = [];
+  const votes = store.get('bal_' + c.id, {});
+  const step = () => {
+    const it = c.items[i], n = c.items.length;
+    const side = (s, txt, img) => `<button class="side ${s}" data-s="${s}">${img ? `<span class="bg" style="background-image:url('${esc(img)}')"></span>` : ''}<span class="fill"></span><span class="lbl">${esc(txt)}<span class="pct"></span></span></button>`;
+    layout(c, `<div class="prog"><div class="bar"><i style="width:${((i + 1) / n) * 100}%"></i></div><span>${i + 1} / ${n}</span></div>
+      <h2 class="qtitle">둘 중 하나만 고른다면?</h2>
+      <div class="vs" id="vs">${side('a', it.a, it.aImage)}<span class="vs-mark">VS</span>${side('b', it.b, it.bImage)}</div>
+      <div class="comment" id="cm"></div>
+      <div id="nextWrap" style="margin-top:14px;visibility:hidden"><button class="btn btn-main" id="next">${i + 1 < n ? '다음 문제' : '결과 보기'}</button></div>
+      <p class="kbd">${ic('keyboard')} 1 또는 2로 고르고, Enter로 다음</p>`);
+    const choose = s => {
+      if ($('#vs').dataset.done) return; $('#vs').dataset.done = 1;
+      const k = String(i); votes[k] = votes[k] || { a: 0, b: 0 }; votes[k][s]++; store.set('bal_' + c.id, votes);
+      const A = (it.aVotes || 0) + votes[k].a, B = (it.bVotes || 0) + votes[k].b, T = A + B || 1;
+      const pa = Math.round(A / T * 100), pb = 100 - pa, mineP = s === 'a' ? pa : pb;
+      picks.push({ it, s, p: mineP });
+      $$('.side').forEach(x => { const p = x.dataset.s === 'a' ? pa : pb; x.querySelector('.pct').textContent = p + '%'; x.querySelector('.fill').style.width = p + '%'; x.classList.add(x.dataset.s === s ? 'mine' : 'dim'); });
+      $('#cm').textContent = mineP >= 65 ? '대부분이 당신과 같은 선택!' : mineP <= 35 ? '소수만 고른 선택이에요' : '거의 반반! 치열하네요';
+      $('#nextWrap').style.visibility = 'visible';
+      keyHandler = e => { if (e.key === 'Enter') next(); };
+    };
+    const next = () => { i++; i < c.items.length ? step() : done(); };
+    $$('.side').forEach(b => b.onclick = () => choose(b.dataset.s));
+    $('#next').onclick = next;
+    keyHandler = e => { if (e.key === '1') choose('a'); if (e.key === '2') choose('b'); };
+  };
+  const done = () => {
+    const minor = picks.filter(p => p.p < 50).length, ratio = minor / picks.length;
+    const v = ratio >= .6 ? ['확고한 소수파', '남들과 다른 길을 가는 당신. 취향이 뚜렷하고 소신이 있어요.']
+            : ratio <= .3 ? ['대세 공감왕', '다수의 마음을 잘 아는 당신. 어디서든 말이 잘 통해요.']
+            : ['밸런스 마스터', '상황에 따라 유연하게 고르는 균형 감각의 소유자예요.'];
+    addHistory(c, v[0], c.emoji, '');
+    layout(c, `<div class="result">${visual(c.thumb, c.emoji, c.color, 'hero-thumb')}
+      <p class="label">${esc(c.title)} 결과 · 소수 선택 ${minor}/${picks.length}</p><h1>${v[0]}</h1><div class="desc">${v[1]}</div>
+      <div class="summary">${picks.map(p => `<div>${esc(p.s === 'a' ? p.it.a : p.it.b)} · <b>${p.p}%</b>와 같은 선택</div>`).join('')}</div>
+      <a class="btn btn-main" href="#/play/${c.id}">${ic('rotate-ccw')} 다시 하기</a>${saveBtn(c.title, v[0], c.emoji, c.color, [`소수 선택 ${minor}/${picks.length}`])}${shareRow(c, `나는 ${v[0]}! 너도 해봐`)}</div>`);
+    sfx('win');
+    keyHandler = null;
+  };
+  step();
+}
+
+/* ---------- 이상형 월드컵 ---------- */
+function playCup(c) {
+  const sizes = [32, 16, 8, 4].filter(s => s <= c.candidates.length);
+  if (sizes.length > 1) {
+    layout(c, `<div class="round">몇 강으로 할까요?<small>후보 ${c.candidates.length}개 중 무작위로 뽑아요</small></div>
+      <div class="round-pick">${sizes.map(s => `<button class="btn btn-line" data-s="${s}">${s}강</button>`).join('')}</div>`);
+    $$('.round-pick button').forEach(b => b.onclick = () => run(+b.dataset.s));
+    keyHandler = null;
+  } else run(sizes[0]);
+
+  function run(size) {
+    let round = shuffle([...c.candidates]).slice(0, size), next = [], idx = 0; const path = [];
+    const label = n => n === 2 ? '결승' : n + '강';
+    const step = () => {
+      const a = round[idx], b = round[idx + 1];
+      const cand = (x, k) => `<button class="cand" data-k="${k}">${visual(x.image, x.emoji, x.color, 'thumb')}<div class="nm">${esc(x.name)}</div></button>`;
+      layout(c, `<div class="prog"><div class="bar"><i style="width:${((size - round.length + idx / 2 + 1) / (size - 1)) * 100}%"></i></div><span>${label(round.length)}</span></div>
+        <div class="round">${label(round.length)}<small>${idx / 2 + 1} / ${round.length / 2}</small></div>
+        <div class="pair">${cand(a, 0)}<span class="vs-mark">VS</span>${cand(b, 1)}</div>
+        <p class="kbd">${ic('keyboard')} ← → 방향키로 고를 수 있어요</p>`);
+      const pick = k => {
+        if ($('.pair').dataset.done) return; $('.pair').dataset.done = 1;
+        const win = k ? b : a;
+        $$('.cand').forEach((x, j) => x.classList.add(j === k ? 'win' : 'lose'));
+        path.push({ r: label(round.length), w: win.name, l: (k ? a : b).name });
+        setTimeout(() => {
+          next.push(win); idx += 2;
+          if (idx >= round.length) { if (next.length === 1) return champion(next[0], path); round = next; next = []; idx = 0; }
+          step();
+        }, 380);
+      };
+      $$('.cand').forEach(btn => btn.onclick = () => pick(+btn.dataset.k));
+      keyHandler = e => { if (e.key === 'ArrowLeft') pick(0); if (e.key === 'ArrowRight') pick(1); };
+    };
+    step();
+  }
+  function champion(w, path) {
+    addHistory(c, `우승: ${w.name}`, w.emoji, '');
+    const final = path.slice(-3).reverse();
+    layout(c, `<div class="result"><div class="crown">${art('👑')}</div><div class="reveal-box">${visual(w.image, w.emoji, w.color, 'hero-thumb')}<span class="sparkle">✦</span><span class="sparkle">✦</span><span class="sparkle">✦</span><span class="sparkle">✦</span></div>
+      <p class="label">${esc(c.title)} 최종 우승</p><h1>${esc(w.name)}</h1>
+      <div class="path">${final.map(p => `<div><b>${esc(p.w)}</b><span>${p.r} · vs ${esc(p.l)}</span></div>`).join('')}</div>
+      <a class="btn btn-main" href="#/play/${c.id}">${ic('rotate-ccw')} 다시 하기</a>${saveBtn(c.title, '우승 ' + w.name, w.emoji, w.color, ['최종 우승'])}${shareRow(c, `내 ${c.title} 우승은 ${w.name}! 너는?`)}</div>`);
+    confetti(); sfx('win'); keyHandler = null;
+  }
+}
+
+/* ---------- 타로 ---------- */
+function playTarot(c) {
+  const topics = c.topics || [{ key: 'today', name: '오늘의 운세', icon: '🌤️' }];
+  layout(c, `<h2 class="qtitle" style="margin-top:6px">무엇이 궁금한가요?</h2>
+    <div class="topics">${topics.map((t, k) => `<button class="topic" data-k="${k}"><b>${art(t.icon)}</b>${esc(t.name)}</button>`).join('')}</div>
+    <p class="kbd">${ic('keyboard')} 숫자 키 1~${topics.length}</p>`);
+  $$('.topic').forEach(b => b.onclick = () => draw(topics[+b.dataset.k]));
+  keyHandler = e => { const k = +e.key - 1; if (topics[k]) draw(topics[k]); };
+
+  function draw(t) {
+    const today = new Date().toISOString().slice(0, 10);
+    const seed = [...(today + c.id + t.key)].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
+    const deck = shuffle([...c.cards], seed).slice(0, 3);
+    layout(c, `<div class="qno">${art(t.icon, 'art-xs')} ${esc(t.name)}</div><h2 class="qtitle">끌리는 카드 한 장을 골라주세요</h2>
+      <div class="deck">${deck.map((cd, k) => `<button class="tcard" data-k="${k}" style="--d:${k}" aria-label="${k + 1}번 카드"><span class="face tback">✦</span>
+        <span class="face front">${cd.image ? `<img src="${esc(cd.image)}" alt="">` : art(cd.emoji)}<span>${esc(cd.name)}</span></span></button>`).join('')}</div>
+      <div id="tarotOut"></div><p class="kbd">${ic('keyboard')} 숫자 키 1~3</p>`);
+    const flip = k => {
+      if ($('.deck').dataset.done) return; $('.deck').dataset.done = 1;
+      const cd = deck[k]; const btn = $$('.tcard')[k];
+      btn.classList.add('flip'); $$('.tcard').forEach(x => { if (x !== btn) x.classList.add('fade'); });
+      addHistory(c, `${t.name} · ${cd.name}`, cd.emoji, '');
+      setTimeout(() => {
+        $('#tarotOut').innerHTML = `<div class="result pop"><p class="label">${today} · ${esc(t.name)}</p><h1>${esc(cd.name)}</h1>
+          <div class="desc">${esc((cd.lines && cd.lines[t.key]) || cd.message || '')}\n\n${esc(cd.luck || '')}</div>
+          <button class="btn btn-main" id="otherTopic">${ic('sparkles')} 다른 운세도 보기</button>
+          ${saveBtn(c.title + ' · ' + t.name, cd.name, cd.emoji, '#E4DEFF', [(cd.lines && cd.lines[t.key]) || '', cd.luck || ''])}
+          ${shareRow(c, `오늘 나의 ${t.name} 카드는 '${cd.name}'! 너도 뽑아봐`)}</div>`;
+        $('#otherTopic').onclick = () => playTarot(c); sfx('win');
+        $('#tarotOut').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 750);
+      keyHandler = null;
+    };
+    $$('.tcard').forEach(b => b.onclick = () => flip(+b.dataset.k));
+    keyHandler = e => { const k = +e.key - 1; if (k >= 0 && k < 3) flip(k); };
+  }
+}
+
+/* ---------- MY 기록 ---------- */
+function renderMe() {
+  current = 'me'; renderTop();
+  const h = store.get('hist', []); const liked = CONTENTS.filter(c => isLiked(c.id));
+  $('#view').innerHTML = `<div class="playwrap"><section class="play pop">
+    <h1 style="font-family:var(--display);font-weight:400;font-size:32px;margin:6px 0 4px">${ic('user')} MY 기록</h1>
+    <p class="lead">이 기기에서 참여한 기록과 좋아요한 콘텐츠예요.</p>
+    <div class="more-title" style="margin-top:10px">${ic('heart')} 좋아요한 콘텐츠 ${liked.length}</div>
+    ${liked.length ? `<div class="grid">${liked.map(c => cardHTML(c)).join('')}</div>` : `<div class="empty">아직 없어요. 마음에 드는 콘텐츠에서 좋아요를 눌러보세요.</div>`}
+    <div class="more-title">${ic('history')} 참여 기록 ${h.length}</div>
+    ${h.length ? `<div class="hist">${h.map(x => `<a href="${x.link || '#/play/' + x.id}"><span class="mini" style="background:${esc(x.color)}">${art(x.emoji)}</span><span><b>${esc(x.title)}</b><small>${esc((byId(x.id) || {}).title || '')} · ${esc(x.date)}</small></span></a>`).join('')}</div>
+      <div style="height:14px"></div><button class="btn btn-line" id="clear">기록 모두 지우기</button>` : `<div class="empty">아직 참여한 콘텐츠가 없어요. 홈에서 골라보세요!</div>`}
+    </section>${sideRec(null)}</div>`;
+  if ($('#clear')) $('#clear').onclick = () => { if (confirm('참여 기록을 모두 지울까요?')) { store.set('hist', []); renderMe(); } };
+  keyHandler = null; window.scrollTo(0, 0);
+}
+
+
+/* =====================================================================
+   ✨ 꾸밈 · 움직임 · 부가 기능
+   ===================================================================== */
+/* 마스코트 둥둥 (mood: happy | think | wow) */
+function mascot(mood = 'happy') {
+  const mouth = { happy: '<path d="M50 72 Q60 82 70 72" stroke="#1D1A3A" stroke-width="3.2" fill="none" stroke-linecap="round"/>',
+                  think: '<path d="M51 76 Q55 72 60 76 T69 76" stroke="#1D1A3A" stroke-width="3" fill="none" stroke-linecap="round"/>',
+                  wow:   '<ellipse cx="60" cy="76" rx="5.5" ry="7" fill="#1D1A3A"/>' }[mood];
+  return `<svg class="mascot m-${mood}" viewBox="0 0 120 150" aria-hidden="true">
+    <path class="m-string" d="M60 110 C 52 122, 68 132, 58 148" stroke="#6B6A85" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <g class="m-body">
+      <path d="M60 8 C 94 8 110 36 105 62 C 100 88 80 104 60 106 C 40 104 20 88 15 62 C 10 36 26 8 60 8 Z" fill="var(--main)"/>
+      <path d="M60 104 l-7 8 h14 z" fill="var(--main-dark)"/>
+      <ellipse cx="38" cy="34" rx="11" ry="6" fill="#fff" opacity=".45" transform="rotate(-32 38 34)"/>
+      <g class="m-eyes"><ellipse cx="46" cy="58" rx="5.5" ry="7.5" fill="#1D1A3A"/><ellipse cx="74" cy="58" rx="5.5" ry="7.5" fill="#1D1A3A"/>
+        <circle cx="48" cy="55" r="1.8" fill="#fff"/><circle cx="76" cy="55" r="1.8" fill="#fff"/></g>
+      <circle cx="35" cy="72" r="6.5" fill="#FF9BB3" opacity=".75"/><circle cx="85" cy="72" r="6.5" fill="#FF9BB3" opacity=".75"/>
+      ${mouth}
+    </g></svg>`;
+}
+
+/* 화면이 그려진 뒤 공통 효과: 숫자 올라가기 · 등장 애니메이션 */
+function enhance() {
+  $$('[data-count]').forEach(el => animateNumber(el, +el.dataset.count, v => el.textContent = el.dataset.plain ? v : fmt(v)));
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 }) : null;
+  $$('.sec, .more-title, .others, .match, .ratio').forEach(el => { if (!io) return; el.classList.add('reveal'); io.observe(el); });
+}
+function animateNumber(el, to, draw) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return draw(to);
+  const t0 = performance.now(), dur = 1100;
+  const f = t => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); draw(Math.round(to * e)); if (p < 1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
+}
+
+/* 홈: 말풍선 · 실시간 알림 */
+let fxTimer = null;
+const NICKS = ['졸린 수달', '배고픈 곰', '행복한 고양이', '신난 강아지', '새벽의 올빼미', '시험기간 판다', '카페인 다람쥐', '떡볶이 요정'];
+function startHomeFx() {
+  clearInterval(fxTimer);
+  const tick = $('#tick'), bub = $('#bubble'); let n = 0;
+  const pool = [];
+  CONTENTS.forEach(c => {
+    if (c.results) Object.values(c.results).forEach(r => pool.push(`${art(r.emoji, 'art-xs')} 방금 <b>${NICKS[pool.length % NICKS.length]}</b>님이 '${esc(r.title)}' 결과를 받았어요`));
+    if (c.candidates) pool.push(`${art('🏆', 'art-xs')} <b>${NICKS[pool.length % NICKS.length]}</b>님의 ${esc(c.title)} 우승은 '${esc(c.candidates[pool.length % c.candidates.length].name)}'`);
+  });
+  shuffle(pool);
+  const step = () => {
+    n++;
+    if (tick) { tick.innerHTML = pool[n % pool.length]; tick.classList.remove('swap'); void tick.offsetWidth; tick.classList.add('swap'); }
+    if (bub && n % 2 === 0) { bub.textContent = SITE.greetings[(n / 2) % SITE.greetings.length]; bub.style.animation = 'none'; void bub.offsetWidth; bub.style.animation = ''; }
+  };
+  step(); fxTimer = setInterval(step, 2800);
+}
+
+/* 결과 분석 로딩 화면 */
+function analyzing(c, done, first) {
+  keyHandler = null;
+  const msgs = [first || '답변을 모으는 중…', '성향을 분석하는 중…', '딱 맞는 결과를 찾았어요!'];
+  layout(c, `<div class="loading"><div class="stage"><span class="ring"></span><span class="ring r2"></span>
+      <div class="orbit"><span>${art('✨')}</span><span>${art('🌟')}</span><span>${art('⭐')}</span></div>${mascot('wow')}</div>
+    <h2 id="ltxt">${msgs[0]}</h2><div class="lbar"><i></i></div></div>`);
+  sfx('tap');
+  setTimeout(() => { const t = $('#ltxt'); if (t) t.textContent = msgs[1]; }, 650);
+  setTimeout(() => { const t = $('#ltxt'); if (t) t.textContent = msgs[2]; sfx('tap'); }, 1350);
+  setTimeout(done, matchMedia('(prefers-reduced-motion: reduce)').matches ? 300 : 1950);
+}
+
+/* 친구와 궁합: 친구 결과 링크에서 '나도 해보기'를 누르고 테스트하면 표시 */
+function chemistry(c, myKey) {
+  const f = store.get('friend', null);
+  if (!f || f.id !== c.id || !c.results[f.key]) return '';
+  const R = c.results[myKey], F = c.results[f.key];
+  let p;
+  if (R.best === f.key || F.best === myKey) p = 96;
+  else if (f.key === myKey) p = 88;
+  else if (R.worst === f.key || F.worst === myKey) p = 41;
+  else p = 55 + ([...(f.key + myKey)].reduce((h, ch) => h + ch.charCodeAt(0), 0) % 26);
+  const msg = p >= 90 ? '말 안 해도 통하는 찰떡궁합!' : p >= 80 ? '닮은 듯 편안한 사이' : p >= 60 ? '서로 배울 점이 많은 조합' : '다르기에 더 재밌는 사이';
+  return `<div class="chem"><div class="ringc" data-p="${p}"><b>0%</b></div>
+    <div><div class="pair2">${art(R.emoji)}${ic('heart')}${art(F.emoji)}</div><strong>친구와의 궁합</strong><p>나: ${esc(R.title)}<br>친구: ${esc(F.title)}</p><p><b>${msg}</b></p></div></div>`;
+}
+
+/* 결과 이미지 저장 (인스타 스토리용 1080×1350) */
+function loadArt(e) {
+  const tryLoad = src => new Promise(ok => { if (!src) return ok(null); const im = new Image(); im.crossOrigin = 'anonymous'; im.onload = () => ok(im); im.onerror = () => ok(null); im.src = src; });
+  return tryLoad(artURL(e)).then(im => im || tryLoad(artURL(e, ART.backup)));
+}
+function saveBtn(title, result, emoji, color, lines) {
+  return `<button class="btn btn-save save-img" data-title="${esc(title)}" data-result="${esc(result)}" data-emoji="${esc(emoji)}" data-color="${esc(color)}" data-lines="${esc(JSON.stringify((lines || []).filter(Boolean)))}">${ic('camera')} 결과 이미지로 저장</button>`;
+}
+async function saveImage(d) {
+  try { await document.fonts.ready; } catch (e) {}
+  const W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  const g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, d.color || '#FFD8C2'); g.addColorStop(1, '#FFFFFF');
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.fillStyle = 'rgba(255,255,255,.55)';
+  for (let i = 0; i < 26; i++) { x.beginPath(); x.arc((i * 211) % W, (i * 137) % H, 6 + (i % 4) * 5, 0, Math.PI * 2); x.fill(); }
+  const rr = (X, Y, w, h, r) => { x.beginPath(); x.moveTo(X + r, Y); x.arcTo(X + w, Y, X + w, Y + h, r); x.arcTo(X + w, Y + h, X, Y + h, r); x.arcTo(X, Y + h, X, Y, r); x.arcTo(X, Y, X + w, Y, r); x.closePath(); };
+  x.fillStyle = '#FFFFFF'; x.shadowColor = 'rgba(29,26,58,.18)'; x.shadowBlur = 40; rr(90, 150, 900, 1030, 60); x.fill(); x.shadowBlur = 0;
+  x.textAlign = 'center'; x.fillStyle = '#6B6A85'; x.font = '600 38px Pretendard, sans-serif'; x.fillText(d.title, W / 2, 250);
+  const pic = await loadArt(d.emoji);
+  if (pic) x.drawImage(pic, W / 2 - 150, 300, 300, 300);
+  else { x.font = '250px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif'; x.fillText(d.emoji || '✨', W / 2, 560); }
+  x.fillStyle = '#1D1A3A'; x.font = '84px Jua, Pretendard, sans-serif';
+  const wrap = (txt, y, max, lh) => { const words = String(txt).split(' '); let line = '', out = []; words.forEach(w => { const t = line ? line + ' ' + w : w; if (x.measureText(t).width > max && line) { out.push(line); line = w; } else line = t; }); out.push(line); out.forEach((l, i) => x.fillText(l, W / 2, y + i * lh)); return y + out.length * lh; };
+  let y = wrap(d.result, 700, 780, 100);
+  x.font = '600 38px Pretendard, sans-serif'; x.fillStyle = '#7C6BF2';
+  (JSON.parse(d.lines || '[]')).slice(0, 3).forEach(l => { y = wrap(l, y + 20, 780, 52); });
+  x.fillStyle = '#FF7A45'; rr(340, 1210, 400, 84, 42); x.fill();
+  x.fillStyle = '#FFFFFF'; x.font = '44px Jua, Pretendard, sans-serif'; x.fillText(SITE.name, W / 2, 1266);
+  x.fillStyle = '#6B6A85'; x.font = '500 28px Pretendard, sans-serif'; x.fillText(location.host || SITE.slogan, W / 2, 1330);
+  const a = document.createElement('a'); a.download = `${SITE.name}_결과.png`; a.href = cv.toDataURL('image/png'); document.body.appendChild(a); a.click(); a.remove();
+  toast('결과 이미지를 저장했어요');
+}
+
+/* 효과음 (상단 스피커 버튼으로 켜기) */
+const soundOn = () => store.get('sound', false);
+function toggleSound() { store.set('sound', !soundOn()); renderTop(); if (soundOn()) sfx('win'); }
+let actx = null;
+function sfx(kind) {
+  if (!soundOn()) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const notes = kind === 'win' ? [523, 659, 784, 1046] : kind === 'bad' ? [300, 220] : [660];
+    notes.forEach((f, i) => { const o = actx.createOscillator(), gn = actx.createGain(), t = actx.currentTime + i * .09;
+      o.type = 'triangle'; o.frequency.value = f; gn.gain.setValueAtTime(.001, t); gn.gain.exponentialRampToValueAtTime(.18, t + .01); gn.gain.exponentialRampToValueAtTime(.001, t + .16);
+      o.connect(gn).connect(actx.destination); o.start(t); o.stop(t + .18); });
+  } catch (e) {}
+}
+
+/* 카드 3D 기울기 (마우스가 있는 기기) */
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  document.addEventListener('pointermove', e => {
+    const c = e.target.closest('.card'); if (!c) return;
+    const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+    c.style.setProperty('--ry', (px * 10).toFixed(2) + 'deg'); c.style.setProperty('--rx', (-py * 10).toFixed(2) + 'deg');
+  });
+  document.addEventListener('pointerout', e => { const c = e.target.closest('.card'); if (c && !c.contains(e.relatedTarget)) { c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); } });
+}
+/* 버튼 물결 + 효과음 */
+document.addEventListener('pointerdown', e => {
+  const b = e.target.closest('.btn, .opt, .side, .topic'); if (!b) return;
+  const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height), sp = document.createElement('span');
+  sp.className = 'ripple'; sp.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
+  b.appendChild(sp); setTimeout(() => sp.remove(), 600);
+  if (e.target.closest('.opt, .side, .cand, .tcard, .topic')) sfx('tap');
+});
+
+/* ---------- 도구 ---------- */
+function shuffle(arr, seed) {
+  let s = seed || Math.floor(Math.random() * 1e9);
+  const rnd = () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296;
+  for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
+  return arr;
+}
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 1900); }
+function confetti() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const box = document.createElement('div'); box.className = 'confetti';
+  const colors = ['#FF7A45', '#FFE45C', '#5ED3B4', '#7C6BF2', '#FF9BB3'];
+  for (let i = 0; i < 70; i++) { const p = document.createElement('i'); p.style.left = Math.random() * 100 + '%'; p.style.background = colors[i % 5]; p.style.animationDelay = Math.random() * .6 + 's'; box.appendChild(p); }
+  document.body.appendChild(box); setTimeout(() => box.remove(), 2800);
+}
+async function share(text) {
+  const url = location.href; text = text || SITE.shareText;
+  try { if (navigator.share) { await navigator.share({ title: document.title, text, url }); return; } } catch (e) { return; }
+  try { await navigator.clipboard.writeText(text + '\n' + url); toast('링크를 복사했어요. 친구에게 붙여넣어 보세요!'); }
+  catch (e) { toast('주소창의 링크를 복사해서 공유해 주세요'); }
+}
+document.addEventListener('click', e => {
+  const s = e.target.closest('.share-btn'); if (s) return share(s.dataset.text);
+  const x = e.target.closest('.share-x'); if (x) return window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(x.dataset.text || SITE.shareText) + '&url=' + encodeURIComponent(location.href), '_blank', 'noopener');
+  const sv = e.target.closest('.save-img'); if (sv) return saveImage(sv.dataset);
+  const tr = e.target.closest('.try-btn'); if (tr) store.set('friend', { id: tr.dataset.id, key: tr.dataset.key });
+  const l = e.target.closest('.like-btn'); if (l) { toggleLike(l.dataset.id); const on = isLiked(l.dataset.id); $$('.like-btn').forEach(b => { b.classList.toggle('liked', on); b.innerHTML = ic('heart') + ' 좋아요'; }); }
+});
+document.addEventListener('keydown', e => { if (e.target.matches('input,select,textarea') || e.metaKey || e.ctrlKey || e.altKey) return; if (keyHandler) keyHandler(e); });
+
+/* ---------- 주소(링크)에 따라 화면 전환 ----------
+   #/  홈   · #/c/test  카테고리   · #/play/아이디  시작 화면
+   #/result/아이디/결과키  테스트 결과(공유용)   · #/me  MY 기록         */
+function route() {
+  clearInterval(bannerTimer); clearInterval(fxTimer); keyHandler = null;
+  const [, a, b, c] = (location.hash || '#/').split('/');
+  window.scrollTo(0, 0);
+  if (a === 'c' && b) return renderHome(b);
+  if (a === 'play' && byId(b)) return renderIntro(byId(b));
+  if (a === 'result' && byId(b)) return renderTestResult(byId(b), decodeURIComponent(c || ''));
+  if (a === 'me') return renderMe();
+  renderHome('all');
+}
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
